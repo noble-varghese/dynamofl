@@ -15,7 +15,7 @@ export const startWebServer = async (cfgFile = null) => {
 
     // Helmet helps secure Express apps by setting HTTP response headers.
     app.use(helmet())
-    app.use(express.urlencoded({ extended: true }));
+    // app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
 
     defineRoutes(app)
