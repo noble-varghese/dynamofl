@@ -13,7 +13,7 @@ export const getJobStatusHandler = async (req, res, next) => {
         )
     }
     const store = {
-        jobId: req.params.id
+        jobId: req.params.tab_id
     }
     const result = await getJobStatusHandler(store.jobId)
 

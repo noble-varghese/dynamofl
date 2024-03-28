@@ -34,14 +34,16 @@ export const defineRoutes = (app) => {
         ],
         createJobsHandler
     )
-    router.get("/job/:id",
+    router.get(
+        "/job/:tab_id",
         [
-            param('id')
+            param('tab_id')
                 .notEmpty()
                 .trim()
                 .isUUID(),
         ],
-        getJobStatusHandler)
+        getJobStatusHandler
+    )
 
 
 
