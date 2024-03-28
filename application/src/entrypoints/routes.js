@@ -35,6 +35,13 @@ export const defineRoutes = (app) => {
         getJobStatusHandler
     );
 
+    router.get(
+        "/job",
+        [
+        ],
+        getAllJobStatusHandler
+    );
+
     router.post(
         "/job",
         [
