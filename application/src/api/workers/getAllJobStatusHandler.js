@@ -22,7 +22,6 @@ export const getAllJobStatusHandler = async (req, res, next) => {
         )
     }
     const data = {}
-    console.log(result.data[0])
     for (const obj of result.data) {
         if (data[obj.id] == undefined) {
             data[obj.id] = {
