@@ -29,7 +29,7 @@ const createAndSendToOrchestrator = async (num) => {
             const workerId = randomUUID()
             workerIds.push(workerId)
             data.push({
-                jobId: jobId,
+                job_id: jobId,
                 id: workerId
             })
         }
