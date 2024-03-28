@@ -7,13 +7,16 @@ export const initPostgres = async () => {
         const pg = knex({
             client: 'pg',
             connection: {
-                // connectionString: config.postgres.database_url,
+                connectionString: config.postgres.database_url,
                 host: config.postgres.host,
-                // port: config.postgres.port,
+                port: config.postgres.port,
                 user: config.postgres.user,
                 database: config.postgres.database,
                 password: config.postgres.password,
-                // ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
+                ssl: {
+                    rejectUnauthorized: false, // This is required for RDS Proxy connections
+                },
+                ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
             },
         });
         logger.info('Connected to PostgresDb')

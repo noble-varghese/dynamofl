@@ -10,18 +10,23 @@ import { logger } from "../../logger/logger.js"
 import { randomUUID } from "crypto";
 
 
-
 const createAndSendToOrchestrator = async (num) => {
     const res = {}
     // Begin a transaction
     const trx = await pgClient.transaction()
     try {
         // construct the jobs for pg
+
+        const job_id = randomUUID()
+        await pgClient("jobs").insert({
+            name: randomUUID(),
+            id: job_id
+        })
         const data = []
         for (let i = 0; i < num; i++) {
             const id = randomUUID()
             data.push({
-                job_id: DEFAULT_JOB_ID,
+                job_id: job_id,
                 id
             })
         }
@@ -43,7 +48,6 @@ const createAndSendToOrchestrator = async (num) => {
         logger.error("Rollback in progress.", err)
         res.err = err
     }
-    return res
 }
 
 

@@ -6,7 +6,7 @@ import time
 
 app = Flask(__name__)
 
-redis_conn = Redis(host='44.201.104.143', port=7000)
+redis_conn = Redis(host='localhost', port=7000)
 
 
 def read_redis_queue():

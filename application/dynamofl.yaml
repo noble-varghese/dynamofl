@@ -1,13 +1,13 @@
 server:
-  # 'The JWT token signing algorithm secret' 
+  # 'The JWT token signing algorithm secret'
   jwtTokenSecret: just-a-default-secret
 
-  # The API listening port. By default is 0 (ephemeral) which serves as a dynamic port for testing purposes. 
+  # The API listening port. By default is 0 (ephemeral) which serves as a dynamic port for testing purposes.
   # For production use, a specific port must be assigned
-  port: 8000
+  port: 4000
 
   # The server hostname. By default is "localhost". For production use, specific host_url can be assigned if needed.
-  host: localhost
+  host: 0.0.0.0
 
 logger:
   # Which type of logger entries should actually be written to the target medium (e.g., stdout)
@@ -27,11 +27,15 @@ db:
   # The DB connection URI
   connectionURI: mongodb+srv://noble-varghese:gh2rw4nwcsmjLx4@rapiddocs.wa7vlet.mongodb.net/?retryWrites=true&w=majority
 
+redis:
+  url: redis://test.g369sf.ng.0001.apse1.cache.amazonaws.com:6379
+
+
 postgres:
-  host: "localhost"
-  port: ""
+  host: "database-1.c3wga62kmum9.ap-southeast-1.rds.amazonaws.com"
+  port: "5432"
   user: "postgres"
   database: "test"
-  password: ""
+  password: "password"
   database_url: ""
   ssl: ""

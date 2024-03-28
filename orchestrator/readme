@@ -1,0 +1,19 @@
+One queue only
+
+{
+    message: "Worker_Creation" // To create the worker when user triggers it
+    worker_num: 89
+    job_id: "23enkjndcdfv"
+    worker_id: "djbvkdfvnldsk"
+}
+
+{
+    message: "Worker_Status"
+    status: "running | completed"
+    job_id: "23enkjndcdfv"
+    worker_id: "djbvkdfvnldsk"
+}
+
+{
+
+}

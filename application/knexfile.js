@@ -10,8 +10,11 @@ export default {
     connection: {
       database: 'test',
       user: 'postgres',
-      password: '',
-      host: 'localhost'
+      password: 'password',
+      ssl: {
+        rejectUnauthorized: false, // This is required for RDS Proxy connections
+      },
+      host: 'database-1.c3wga62kmum9.ap-southeast-1.rds.amazonaws.com'
     }
   },
 

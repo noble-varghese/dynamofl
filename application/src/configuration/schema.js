@@ -33,11 +33,15 @@ export default {
             default: null,
         },
     },
-    DB: {
+    redis: {
+        url: { doc: 'Connection url', format: String, default: "" }
+
+    },
+    db: {
         connectionURI: {
             doc: 'The DB connection user name',
             format: String,
-            default: 'mongodb+srv://rapiddocs-admin:<password>@rapiddocs.wa7vlet.mongodb.net/?retryWrites=true&w=majority',
+            default: '',
         },
         dbName: {
             doc: 'The default database name. Default is empty and must be a string value.',
