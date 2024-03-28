@@ -6,6 +6,7 @@ import { createWorkerHandler } from "../api/workers/createWorkerHandler.js";
 import { createJobsHandler } from "../api/workers/createJobsHandler.js";
 import { body, param } from "express-validator";
 import { getJobStatusHandler } from "../api/workers/getJobStatusHandler.js";
+import { getAllJobStatusHandler } from "../api/workers/getAllJobStatusHandler.js";
 
 export const defineRoutes = (app) => {
     const router = express.Router();
