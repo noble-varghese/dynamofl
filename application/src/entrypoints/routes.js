@@ -34,7 +34,7 @@ export const defineRoutes = (app) => {
         ],
         createJobsHandler
     )
-    router.get("/job/:jobId", param('jobId').notEmpty(), getJobStatusHandler)
+    router.get("/job/:jobId", getJobStatusHandler)
 
 
 
