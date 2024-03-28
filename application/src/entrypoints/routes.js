@@ -21,7 +21,20 @@ export const defineRoutes = (app) => {
                 .notEmpty().withMessage('count is required.')
                 .isInt().withMessage('count must be an integer.')
         ],
-        createWorkerHandler)
+        createWorkerHandler
+    );
+
+    router.get(
+        "/job/:tab_id",
+        [
+            param('tab_id')
+                .notEmpty()
+                .trim()
+                .isUUID(),
+        ],
+        getJobStatusHandler
+    );
+
     router.post(
         "/job",
         [
@@ -33,20 +46,7 @@ export const defineRoutes = (app) => {
                 .isInt().withMessage('num_random_values must be an integer.')
         ],
         createJobsHandler
-    )
-    router.get(
-        "/job/:tab_id",
-        [
-            param('tab_id')
-                .notEmpty()
-                .trim()
-                .isUUID(),
-        ],
-        getJobStatusHandler
-    )
-
-
-
+    );
 
 
     app.use('/v1', router)
