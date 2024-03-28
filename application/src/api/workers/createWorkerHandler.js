@@ -48,6 +48,7 @@ const createAndSendToOrchestrator = async (num) => {
         logger.error("Rollback in progress.", err)
         res.err = err
     }
+    return res
 }
 
 
