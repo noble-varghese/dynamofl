@@ -30,7 +30,7 @@ const createAndSendToOrchestrator = async (num) => {
             workerIds.push(workerId)
             data.push({
                 job_id: jobId,
-                id: workerId
+                id: workerId,
             })
         }
 
