@@ -26,7 +26,6 @@ export const getJobStatusHandler = async (req, res, next) => {
         return {
             id: obj.worker_id,
             status: obj.worker_status,
-            queue_name: obj.worker_queue_name,
             created_at: obj.created_at,
             updated_at: obj.updated_at,
 
@@ -40,7 +39,8 @@ export const getJobStatusHandler = async (req, res, next) => {
         worker_count: result.data[0].worker_count,
         status: result.data[0].status,
         created_at: result.data[0].created_at,
-        updated_at: result.data[0].updated_at
+        updated_at: result.data[0].updated_at,
+        queue_name: obj.worker_queue_name,
     }
     req.data = { ...jobData, worker_data: workerData }
     responseHandler(req, res, next)

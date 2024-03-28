@@ -31,6 +31,7 @@ export const getAllJobStatusHandler = async (req, res, next) => {
                 files_num: obj.files_num,
                 rand_num_count: obj.rand_num_count,
                 worker_count: obj.worker_count,
+                queue_name: obj.worker_queue_name,
                 status: obj.status,
                 created_at: obj.created_at,
                 updated_at: obj.updated_at,
@@ -40,7 +41,6 @@ export const getAllJobStatusHandler = async (req, res, next) => {
         data[obj.id].worker_data.push({
             id: obj.worker_id,
             status: obj.worker_status,
-            queue_name: obj.worker_queue_name,
             created_at: obj.created_at,
             updated_at: obj.updated_at,
         })
