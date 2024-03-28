@@ -826,8 +826,8 @@ export const getRandomNumber = (min = 0, max = 10) => {
 }
 
 export const getRandomName = () => {
-    leftLen = left.length
-    rightLen = right.length
+    const leftLen = left.length
+    const rightLen = right.length
     const name = `${left[getRandomNumber(0, leftLen)]}_${right[getRandomNumber(0, rightLen)]}`
     return name
 }
