@@ -20,9 +20,10 @@ const createAndSendToOrchestrator = async (num) => {
         // construct the jobs for pg
 
         const jobId = randomUUID()
+        const jobName = getRandomName()
         const workerIds = []
         await pgClient(JOBS_TABLE).insert({
-            name: getRandomName(),
+            name: jobName,
             id: jobId
         })
         const data = []
@@ -51,6 +52,7 @@ const createAndSendToOrchestrator = async (num) => {
 
         res.data = {
             jobId,
+            jobName,
             workerIds
         }
 
