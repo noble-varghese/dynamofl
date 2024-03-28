@@ -117,7 +117,7 @@ def main():
             print("Adding a new worker due to special packet.", event.__dict__)
             print("Packet information:", packet_info['packet'])
             d = packet_info['packet']
-            # time.sleep(5)
+            time.sleep(5)
             WORKERS[d['worker_id']] = d
 
             event.clear()  # Reset the event
