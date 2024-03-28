@@ -48,7 +48,7 @@ const createAndSendToOrchestrator = async (num) => {
             await redisRPush(WORKER_CREATION_QUEUE, JSON.stringify({
                 message: WORKER_CREATION_MESSAGE,
                 job_id: i.workerId,
-                worker_id: i.queueName
+                worker_id: queueName
 
             }))
         }
