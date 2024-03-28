@@ -23,9 +23,7 @@ export const getJobStatusHandler = async (req, res, next) => {
         )
     }
     if (result.data.length == 0) {
-        return next(
-            new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message)
-        )
+        responseHandler(req, res, next)
     }
     const workerData = result.data.map(obj => {
         return {
