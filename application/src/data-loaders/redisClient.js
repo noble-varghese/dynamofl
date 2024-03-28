@@ -7,7 +7,7 @@ import { createClient } from 'redis';
 export const initClient = async () => {
     try {
         const client = await createClient({
-            url: 'redis://test-2.krc8p7.ng.0001.use1.cache.amazonaws.com:6379', // Replace with your primary endpoint
+            url: 'redis://test.g369sf.ng.0001.apse1.cache.amazonaws.com:6379', // Replace with your primary endpoint
         }).connect();
 
         await client.ping()
