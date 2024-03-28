@@ -21,7 +21,7 @@ export const getAllJobStatusHandler = async (req, res, next) => {
             new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result.err)
         )
     }
-    data = {}
+    const data = {}
     for (const i in result.data) {
         if (data[i.id] != undefined) {
             data[i.id] = {
