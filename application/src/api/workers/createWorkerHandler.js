@@ -8,6 +8,7 @@ import { JOBS_TABLE, WORKERS_TABLE } from "../../../models/tables.js"
 import { redisRPush } from "../../utils/redisUtils.js"
 import { logger } from "../../logger/logger.js"
 import { randomUUID } from "crypto";
+import { getRandomName } from "../../nameGenerator/generator.js"
 
 
 const createAndSendToOrchestrator = async (num) => {
@@ -21,7 +22,7 @@ const createAndSendToOrchestrator = async (num) => {
         const jobId = randomUUID()
         const workerIds = []
         await pgClient(JOBS_TABLE).insert({
-            name: randomUUID(),
+            name: getRandomName(),
             id: jobId
         })
         const data = []
