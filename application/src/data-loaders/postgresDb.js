@@ -16,7 +16,7 @@ export const initPostgres = async () => {
                 ssl: {
                     rejectUnauthorized: false, // This is required for RDS Proxy connections
                 },
-                ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
+                // ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
             },
         });
         logger.info('Connected to PostgresDb')
