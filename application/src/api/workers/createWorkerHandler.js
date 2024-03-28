@@ -84,7 +84,7 @@ export const createWorkerHandler = async (req, res, next) => {
 
     req.data = {
         messsage: "Initiating Worker Creation Process!",
-        ...res.data
+        ...result.data,
     }
     responseHandler(req, res, next)
 }
