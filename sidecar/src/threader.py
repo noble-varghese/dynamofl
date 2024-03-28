@@ -12,7 +12,8 @@ event = threading.Event()
 
 
 class Worker:
-    def __init__(self, queue_name, thread_id, event, packet_info):
+    def __init__(self, queue_name, worker_id, thread_id, event, packet_info):
+        self.worker_id = worker_id
         self.queue_name = queue_name
         self.thread_id = thread_id
         self.event = event
@@ -54,7 +55,7 @@ class Worker:
                 self.process_job(job_data)
             else:
                 print(
-                    f"No jobs in the queue {self.thread_id}. Exiting worker.", threading.active_count())
+                    f"No jobs in the queue {self.worker_id} | {self.thread_id} Exiting worker.", threading.active_count())
                 # If the consumer started and if no more packet is present, then we can safely exit the thread
                 if is_started:
                     return
@@ -76,18 +77,18 @@ def create_shared_event_and_dict():
     return event, packet_info
 
 
-def worker_thread(queue_name, thread_id, event, packet_info):
-    worker = Worker(queue_name, thread_id, event, packet_info)
+def worker_thread(queue_name, worker_id, thread_id, event, packet_info):
+    worker = Worker(queue_name, worker_id, thread_id, event, packet_info)
     if queue_name == WORKER_CREATION_QUEUE:
         worker.poll_worker_queue()
     else:
         worker.packet_consumer()
 
 
-def create_worker_creation_thread(event, packet_info):
+def create_worker_creation_thread(worker_id, event, packet_info):
     thread_id = str(uuid4())
     t = threading.Thread(target=worker_thread, args=(
-        WORKER_CREATION_QUEUE, thread_id, event, packet_info))
+        WORKER_CREATION_QUEUE, worker_id, thread_id, event, packet_info))
     t.daemon = True
     return thread_id, t
 
@@ -101,14 +102,14 @@ def worker_spawn_thread(queue_name, thread_id, event, packet_info):
 
 def main():
     event, packet_info = create_shared_event_and_dict()
-    thread_id, t = create_worker_creation_thread(event, packet_info)
+    thread_id, t = create_worker_creation_thread(str(uuid4(), event, packet_info)
     THREADS[thread_id] = t
     t.start()
 
     for _, v in WORKERS.items():
         thread_id = str(uuid4())
         t = threading.Thread(target=worker_thread, args=(
-            v['queue_name'], thread_id, event, packet_info))
+            v['queue_name'], v['worker_id'], thread_id, event, packet_info))
         THREADS[thread_id] = t
         t.daemon = True
         t.start()
