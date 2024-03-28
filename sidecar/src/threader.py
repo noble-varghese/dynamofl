@@ -92,7 +92,7 @@ def create_worker_creation_thread(event, packet_info):
 
 
 def worker_spawn_thread(queue_name, thread_id, event, packet_info):
-    thread_id = str(uuid4())
+    thread_id = f"main_thread_${str(uuid4())}"
     t = threading.Thread(target=worker_thread, args=(
         queue_name, thread_id, event, packet_info))
     return thread_id, t
