@@ -48,7 +48,7 @@ const createAndSendToOrchestrator = async (num) => {
             }))
         }
 
-        req.data = {
+        res.data = {
             jobId,
             workerIds
         }
