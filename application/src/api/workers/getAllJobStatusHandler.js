@@ -22,26 +22,26 @@ export const getAllJobStatusHandler = async (req, res, next) => {
         )
     }
     const data = {}
-    for (const i in result.data) {
-        if (data[i.id] == undefined) {
-            data[i.id] = {
-                id: obj.worker_id,
-                status: obj.worker_status,
-                queue_name: obj.worker_queue_name,
+    for (const obj in result.data) {
+        if (data[obj.id] == undefined) {
+            data[obj.id] = {
+                id: obj.id,
+                name: obj.name,
+                files_num: obj.files_num,
+                rand_num_count: obj.rand_num_count,
+                worker_count: obj.worker_count,
+                status: obj.status,
                 created_at: obj.created_at,
                 updated_at: obj.updated_at,
                 worker_data: []
             }
         }
-        data[i.id].worker_data.push({
-            id: result.data[0].id,
-            name: result.data[0].name,
-            files_num: result.data[0].files_num,
-            rand_num_count: result.data[0].rand_num_count,
-            worker_count: result.data[0].worker_count,
-            status: result.data[0].status,
-            created_at: result.data[0].created_at,
-            updated_at: result.data[0].updated_at
+        data[obj.id].worker_data.push({
+            id: obj.worker_id,
+            status: obj.worker_status,
+            queue_name: obj.worker_queue_name,
+            created_at: obj.created_at,
+            updated_at: obj.updated_at,
         })
     }
     req.data = data
