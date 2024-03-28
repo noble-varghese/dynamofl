@@ -35,7 +35,7 @@ const createAndSendToOrchestrator = async (num) => {
             data.push({
                 job_id: jobId,
                 queue_name: queueName,
-                id: i.workerId,
+                id: workerId,
             })
         }
 
@@ -44,11 +44,11 @@ const createAndSendToOrchestrator = async (num) => {
         await trx(WORKERS_TABLE).insert(data)
 
         // Send the jobs to orchestrator queue
-        for (const i of workerIds) {
+        for (const workerId of workerIds) {
             await redisRPush(WORKER_CREATION_QUEUE, JSON.stringify({
                 message: WORKER_CREATION_MESSAGE,
                 job_id: jobId,
-                worker_id: i.workerId,
+                worker_id: workerId,
                 queue_name: queueName
 
             }))
