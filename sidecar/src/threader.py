@@ -108,7 +108,7 @@ def main():
     t.start()
 
     for _, v in WORKERS.items():
-        thread_id = str(uuid4())
+        thread_id = f"main_thread_{str(uuid4())}"
         t = threading.Thread(target=worker_thread, args=(
             v['queue_name'], v['worker_id'], thread_id, event, packet_info))
         THREADS[thread_id] = t
