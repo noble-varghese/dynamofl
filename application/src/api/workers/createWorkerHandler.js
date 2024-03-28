@@ -18,17 +18,19 @@ const createAndSendToOrchestrator = async (num) => {
     try {
         // construct the jobs for pg
 
-        const job_id = randomUUID()
-        const worker_id = randomUUID()
+        const jobId = randomUUID()
+        const workerIds = []
         await pgClient(JOBS_TABLE).insert({
             name: randomUUID(),
-            id: job_id
+            id: jobId
         })
         const data = []
         for (let i = 0; i < num; i++) {
+            const workerId = randomUUID()
+            workerIds.push(workerId)
             data.push({
-                job_id: job_id,
-                id: worker_id
+                jobId: jobId,
+                id: workerId
             })
         }
 
@@ -40,14 +42,15 @@ const createAndSendToOrchestrator = async (num) => {
         for (const i of data) {
             await redisRPush(WORKER_CREATION_QUEUE, JSON.stringify({
                 message: WORKER_CREATION_MESSAGE,
-                job_id,
-                worker_id
+                jobId,
+                workerIds
 
             }))
         }
 
         req.data = {
-            job_id, worker_id
+            jobId,
+            workerIds
         }
 
         await trx.commit()
