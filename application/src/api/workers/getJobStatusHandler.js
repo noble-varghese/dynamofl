@@ -24,6 +24,7 @@ export const getJobStatusHandler = async (req, res, next) => {
     }
     if (result.data.length == 0) {
         responseHandler(req, res, next)
+        return
     }
     const workerData = result.data.map(obj => {
         return {
