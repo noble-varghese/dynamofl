@@ -23,7 +23,7 @@ export const getAllJobStatusHandler = async (req, res, next) => {
     }
     const data = {}
     for (const i in result.data) {
-        if (data[i.id] != undefined) {
+        if (data[i.id] == undefined) {
             data[i.id] = {
                 id: obj.worker_id,
                 status: obj.worker_status,
@@ -33,7 +33,6 @@ export const getAllJobStatusHandler = async (req, res, next) => {
                 worker_data: []
             }
         }
-        console.log(data)
         data[i.id].worker_data.push({
             id: result.data[0].id,
             name: result.data[0].name,
