@@ -39,7 +39,6 @@ def worker(queue_name, worker_id, event):
 
 # Modify the main function to listen for the event and add a new worker when the event is set
 
-
 def main(jobs):
     event = create_shared_event()
     processes = []
@@ -58,3 +57,6 @@ def main(jobs):
             event.clear()  # Reset the event
         for p in processes:
             p.join()
+
+if __name__ == "__main__":
+    
