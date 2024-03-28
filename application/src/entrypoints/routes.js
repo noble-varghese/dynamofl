@@ -36,7 +36,7 @@ export const defineRoutes = (app) => {
     )
     router.get("/job/:id",
         [
-            param('jobId')
+            param('id')
                 .notEmpty()
                 .trim()
                 .isUUID(),
