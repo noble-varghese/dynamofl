@@ -17,7 +17,8 @@ class Worker:
         self.thread_id = thread_id
         self.event = event
         self.packet_info = packet_info
-        self.redis_conn = redis.Redis(host='test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
+        self.redis_conn = redis.Redis(
+            host='test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
 
     def process_job(self, job_data):
         # Simulate processing time
@@ -53,7 +54,7 @@ class Worker:
                 self.process_job(job_data)
             else:
                 print(
-                    f"No jobs in the queue {self.queue_name}. Exiting worker.", len(THREADS))
+                    f"No jobs in the queue {self.thread_id}. Exiting worker.", threading.active_count())
                 # If the consumer started and if no more packet is present, then we can safely exit the thread
                 if is_started:
                     return
@@ -130,7 +131,6 @@ def main():
 
         else:
             # If the event is not set, sleep for a short period to avoid busy-waiting
-            time.sleep(1)
             for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
                 print('joining...', thread_id)
                 thread.join()
