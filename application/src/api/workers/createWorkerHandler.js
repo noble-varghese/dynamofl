@@ -2,15 +2,16 @@ import { validationResult } from "express-validator"
 import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, SERVER_ERROR } from "../../utils/custom-error-codes.js"
-import { DEFAULT_JOB_ID, ORCHESTRRATOR_QUEUE } from "../../utils/constants.js"
+import { DEFAULT_JOB_ID, ORCHESTRRATOR_QUEUE, WORKER_CREATION_MESSAGE } from "../../utils/constants.js"
 import { pgClient, redisClient } from "../../data-loaders/index.js"
-import { WORKERS_TABLE } from "../../../models/tables.js"
+import { JOBS_TABLE, WORKERS_TABLE } from "../../../models/tables.js"
 import { redisRPush } from "../../utils/redisUtils.js"
 import { logger } from "../../logger/logger.js"
 import { randomUUID } from "crypto";
 
 
 const createAndSendToOrchestrator = async (num) => {
+    logger.debug("starting createAndSendToOrchestrator..")
     const res = {}
     // Begin a transaction
     const trx = await pgClient.transaction()
@@ -18,28 +19,35 @@ const createAndSendToOrchestrator = async (num) => {
         // construct the jobs for pg
 
         const job_id = randomUUID()
-        await pgClient("jobs").insert({
+        const worker_id = randomUUID()
+        await pgClient(JOBS_TABLE).insert({
             name: randomUUID(),
             id: job_id
         })
         const data = []
         for (let i = 0; i < num; i++) {
-            const id = randomUUID()
             data.push({
                 job_id: job_id,
-                id
+                id: worker_id
             })
         }
 
 
         // Create Jobs and add to postgres
         await trx(WORKERS_TABLE).insert(data)
-        logger.info("creating data")
 
         // Send the jobs to orchestrator queue
         for (const i of data) {
-            logger.info(i)
-            await redisRPush(ORCHESTRRATOR_QUEUE, JSON.stringify(i))
+            await redisRPush(ORCHESTRRATOR_QUEUE, JSON.stringify({
+                message: WORKER_CREATION_MESSAGE,
+                job_id,
+                worker_id
+
+            }))
+        }
+
+        req.data = {
+            job_id, worker_id
         }
 
         await trx.commit()
@@ -48,6 +56,7 @@ const createAndSendToOrchestrator = async (num) => {
         logger.error("Rollback in progress.", err)
         res.err = err
     }
+    logger.debug("success on createAndSendToOrchestrator")
     return res
 }
 
@@ -70,6 +79,9 @@ export const createWorkerHandler = async (req, res, next) => {
         )
     }
 
-    req.data = "Initiating Worker Creation Process!"
+    req.data = {
+        messsage: "Initiating Worker Creation Process!",
+        ...res.data
+    }
     responseHandler(req, res, next)
 }
