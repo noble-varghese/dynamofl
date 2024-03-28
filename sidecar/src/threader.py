@@ -53,7 +53,7 @@ class Worker:
                 self.process_job(job_data)
             else:
                 print(
-                    f"No jobs in the queue {self.queue_name}. Exiting worker.")
+                    f"No jobs in the queue {self.queue_name}. Exiting worker.", len(THREADS))
                 # If the consumer started and if no more packet is present, then we can safely exit the thread
                 if is_started:
                     return
