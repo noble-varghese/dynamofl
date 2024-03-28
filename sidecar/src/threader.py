@@ -102,7 +102,8 @@ def worker_spawn_thread(queue_name, thread_id, event, packet_info):
 
 def main():
     event, packet_info = create_shared_event_and_dict()
-    thread_id, t = create_worker_creation_thread(str(uuid4()), event, packet_info)
+    thread_id, t = create_worker_creation_thread(
+        str(uuid4()), event, packet_info)
     THREADS[thread_id] = t
     t.start()
 
@@ -130,11 +131,10 @@ def main():
             # Ensure all threads are joined before checking the event again
             # Add logic here to add a new worker based on your job configuration
 
-        else:
-            # If the event is not set, sleep for a short period to avoid busy-waiting
-            for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
-                print('joining...', thread_id)
-                thread.join()
+        # If the event is not set, sleep for a short period to avoid busy-waiting
+        for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
+            print('joining...', thread_id)
+            thread.join()
 
 
 def signal_handler(sig, frame):
