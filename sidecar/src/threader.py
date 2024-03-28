@@ -102,7 +102,7 @@ def worker_spawn_thread(queue_name, thread_id, event, packet_info):
 
 def main():
     event, packet_info = create_shared_event_and_dict()
-    thread_id, t = create_worker_creation_thread(str(uuid4(), event, packet_info)
+    thread_id, t = create_worker_creation_thread(str(uuid4()), event, packet_info)
     THREADS[thread_id] = t
     t.start()
 
