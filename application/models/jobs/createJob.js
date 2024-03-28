@@ -16,4 +16,4 @@ export const createJob = async (data) => {
         result.err = e;
     }
     return result;
-}
+}   

@@ -4,7 +4,8 @@ import { NOT_FOUND } from "../utils/custom-error-codes.js";
 import responseHandler from "../middlewares/responseHandler.js";
 import { createWorkerHandler } from "../api/workers/createWorkerHandler.js";
 import { createJobsHandler } from "../api/workers/createJobsHandler.js";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
+import { getJobStatusHandler } from "../api/workers/getJobStatusHandler.js";
 
 export const defineRoutes = (app) => {
     const router = express.Router();
@@ -33,11 +34,11 @@ export const defineRoutes = (app) => {
         ],
         createJobsHandler
     )
+    router.get("/job/:jobId", param('jobId').notEmpty(), getJobStatusHandler)
 
 
 
 
-    // router.get("/tab/:tabId", getTabsHandler)
 
     app.use('/v1', router)
 
