@@ -25,6 +25,7 @@ const createAndSendToOrchestrator = async (num) => {
         const workerIds = []
         await pgClient(JOBS_TABLE).insert({
             name: jobName,
+            worker_count: num,
             id: jobId
         })
         const data = []
