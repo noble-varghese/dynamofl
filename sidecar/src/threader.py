@@ -1,6 +1,7 @@
 import json
 import redis
 import threading
+import atexit
 from uuid import uuid4
 import time
 import signal
@@ -143,8 +144,17 @@ def signal_handler(sig, frame):
     exit()
 
 
+def stop_background(stop_event, thread):
+    # request the background thread stop
+    stop_event.set()
+    # wait for the background thread to stop
+    thread.join()
+
+
 if __name__ == "__main__":
-    # Add the main worker_creation consumer queueu
+    # # Add the main worker_creation consumer queueu
+    # atexit.register(stop_background, stop_event, thread)
+
     signal.signal(signal.SIGINT, signal_handler)
     while True:
         main()
