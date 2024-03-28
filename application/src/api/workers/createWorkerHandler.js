@@ -35,7 +35,7 @@ const createAndSendToOrchestrator = async (num) => {
             data.push({
                 job_id: jobId,
                 queue_name: queueName,
-                id: workerId,
+                worker_id: i.workerId,
             })
         }
 
