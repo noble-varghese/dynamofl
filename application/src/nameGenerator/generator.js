@@ -822,7 +822,7 @@ const right = [
 ]
 
 export const getRandomNumber = (min = 0, max = 10) => {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 export const getRandomName = () => {
