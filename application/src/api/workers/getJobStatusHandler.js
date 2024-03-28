@@ -44,7 +44,7 @@ export const getJobStatusHandler = async (req, res, next) => {
         status: result.data[0].status,
         created_at: result.data[0].created_at,
         updated_at: result.data[0].updated_at,
-        queue_name: obj.worker_queue_name,
+        queue_name: result.data[0].worker_queue_name,
     }
     req.data = { ...jobData, worker_data: workerData }
     responseHandler(req, res, next)
