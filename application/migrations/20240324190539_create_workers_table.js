@@ -8,6 +8,7 @@ export const up = async (knex) => {
         table.uuid('job_id').notNullable();
         table.foreign('job_id').references('id').inTable('jobs').onDelete('CASCADE').onUpdate('CASCADE');
         table.enum('status', ['PENDING', 'COMPLETED', 'FAILED']).defaultTo('PENDING').notNullable();
+        table.uuid('queue_name', 100).notNullable();
         table.timestamps(true, true);
     });
 };

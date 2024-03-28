@@ -22,7 +22,8 @@ export const getJobStatusHandler = async (req, res, next) => {
             new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result.err)
         )
     }
+    
 
-    req.data = result
+    req.data = result.data
     responseHandler(req, res, next)
 }
