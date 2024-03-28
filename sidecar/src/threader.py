@@ -17,7 +17,7 @@ class Worker:
         self.thread_id = thread_id
         self.event = event
         self.packet_info = packet_info
-        self.redis_conn = redis.Redis(host='localhost', port=6379)
+        self.redis_conn = redis.Redis(host='redis://test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
 
     def process_job(self, job_data):
         # Simulate processing time
