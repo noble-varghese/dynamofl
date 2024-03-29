@@ -1,5 +1,4 @@
 import { pgClient } from "../../src/data-loaders/index.js";
-import { randomUUID } from "crypto";
 import { JOBS_TABLE } from "../tables.js";
 import { logger } from "../../src/logger/logger.js";
 import { redisRPush } from "../../src/utils/redisUtils.js";
