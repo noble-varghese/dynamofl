@@ -16,14 +16,14 @@ export const updateJobsHandler = async (req, res, next) => {
             new ErrorHandlerClass(CLIENT_ERROR.statusCode, CLIENT_ERROR.message, { errors: errors.array() })
         )
     }
-    logger.info( req.params)
+    logger.info(req.params)
     const store = {
         jobId: req.params.tab_id,
         numFiles: req.body.num_files,
         numRandomValues: req.body.num_random_values,
     }
 
-    logger.info("JobID: ", store.jobId)
+    logger.info(`JobID:  ${store.jobId}`)
 
     const result1 = getJobById(store.jobId)
     if (result1.err) {
