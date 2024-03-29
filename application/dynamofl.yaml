@@ -4,7 +4,7 @@ server:
 
   # The API listening port. By default is 0 (ephemeral) which serves as a dynamic port for testing purposes.
   # For production use, a specific port must be assigned
-  port: 4000
+  port: 5000
 
   # The server hostname. By default is "localhost". For production use, specific host_url can be assigned if needed.
   host: 0.0.0.0

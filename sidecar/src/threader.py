@@ -23,7 +23,7 @@ class Worker:
         self.thread_id = thread_id
         self.event = event
         self.packet_info = packet_info
-        self.client = Client(base_url="http://13.215.183.121:4000/v1")
+        self.client = Client(base_url="http://13.215.183.121:5000/v1")
         self.redis_conn = redis.Redis(
             host='test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
 

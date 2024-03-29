@@ -15,13 +15,11 @@ venv:
 # --module $(FLASK_APP):app 
 # --ini orchestrator.ini
 run-consumer:
-	cd sidecar && pip install -r requirements.txt
-	python sidecar/src/threader.py
+	cd sidecar && pip install -r requirements.txt && python sidecar/src/threader.py
 
 run-application-server:
 	cd application && knex migrate:latest && npm run start
 
-# Clean up
 clean:
 	rm -rf venv
 
