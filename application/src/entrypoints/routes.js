@@ -11,6 +11,7 @@ import { updateWorkerStatusHandler } from "../api/workers/updateWorkerStatusHand
 import { getWorkerByIdHandler } from "../api/workers/getWorkerByIdHandler.js";
 import { updateJobStatusHandler } from "../api/workers/updateJobStatusHandler.js";
 import { inputFileHandler } from "../api/workers/inputFileHandler.js";
+import { outputFileHandler } from "../api/workers/outputFileHandler.js";
 
 export const defineRoutes = (app) => {
     const router = express.Router();
@@ -102,7 +103,7 @@ export const defineRoutes = (app) => {
         [
             param('job_id').notEmpty().isUUID(),
         ],
-        inputFileHandler
+        outputFileHandler
     )
 
     app.use('/v1', router)
