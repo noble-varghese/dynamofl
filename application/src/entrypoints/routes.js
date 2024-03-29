@@ -97,6 +97,14 @@ export const defineRoutes = (app) => {
         inputFileHandler
     )
 
+    router.get(
+        "/output_csv/:job_id",
+        [
+            param('job_id').notEmpty().isUUID(),
+        ],
+        inputFileHandler
+    )
+
     app.use('/v1', router)
 
     // handling the 404 errors
