@@ -1,15 +1,10 @@
-import { validationResult } from "express-validator"
-import responseHandler from "../../middlewares/responseHandler.js"
-import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
-import { CLIENT_ERROR, SERVER_ERROR } from "../../utils/custom-error-codes.js"
-import { WORKER_CREATION_QUEUE, WORKER_CREATION_MESSAGE } from "../../utils/constants.js"
-import { pgClient, redisClient } from "../../data-loaders/index.js"
-import { JOBS_TABLE, WORKERS_TABLE } from "../../../models/tables.js"
-import { redisRPush } from "../../utils/redisUtils.js"
-import { logger } from "../../logger/logger.js"
+import { pgClient } from "../../src/data-loaders/index.js";
 import { randomUUID } from "crypto";
-import { getRandomName } from "../../nameGenerator/generator.js"
-
+import { JOBS_TABLE } from "../tables.js";
+import { logger } from "../../src/logger/logger.js";
+import { redisRPush } from "../../src/utils/redisUtils.js";
+import { generateRandomNumbers } from "../../src/utils/generateRandomNumbers.js";
+import { JOB_PROCESS_MESSAGE } from "../../src/utils/constants.js";
 
 const createAndSendToOrchestrator = async (num) => {
     logger.debug("starting createAndSendToOrchestrator..")
@@ -72,28 +67,40 @@ const createAndSendToOrchestrator = async (num) => {
     return res
 }
 
+const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCount) => {
 
-export const createWorkerHandler = async (req, res, next) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        // Return 400 status code with validation errors
-        return next(
-            new ErrorHandlerClass(CLIENT_ERROR.statusCode, CLIENT_ERROR.message, { errors: errors.array() })
-        )
-    }
-    const store = {
-        count: req.body.count,
-    }
-    const result = await createAndSendToOrchestrator(store.count)
-    if (result.err) {
-        return next(
-            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result.err)
-        )
+    for (const i = 0; i < files; i++) {
+        const nums = generateRandomNumbers(randNumCount)
+        redisRPush(queueName, {
+            message: JOB_PROCESS_MESSAGE,
+            job_id: jobId,
+            file_num: files,
+            num_count: randNumCount,
+            random_nums: nums,
+        })
     }
 
-    req.data = {
-        messsage: "Initiating Worker Creation Process!",
-        ...result.data,
-    }
-    responseHandler(req, res, next)
 }
+
+
+export const updateJobAndSendToQueue = async (queueName, id, data) => {
+    const res = {}
+    // Begin a transaction
+    const trx = await pgClient.transaction()
+    try {
+        // Update the jobs with files and count.
+        await trx(JOBS_TABLE)
+            .update(data)
+            .where('id', id)
+
+        // Create files and send it to the queue.
+        await createFilesAndAddJobsToQueue(queueName, id, data.files_num, data.rand_num_count)
+
+        await trx.commit()
+    } catch (err) {
+        await trx.rollback()
+        logger.error("Rollback in progress.", err)
+        res.err = err
+    }
+    return result;
+}   
