@@ -39,11 +39,11 @@ class Worker:
         data = [i/file_count for i in nums]
         path = self.create_folder_path(job_data['job_id'])
         file_path = f"{path}/file-{uuid4()}.csv"
-        
+
         # Ensure the directory exists
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
-        df = pd.DataFrame(data)
+        df = pd.DataFrame([data])
         df.to_csv(file_path, index=False)
         print(f'Saved file - {path}')
 
