@@ -82,7 +82,7 @@ class Worker:
         })
 
     def set_job_status_complete(self):
-        self.client.put(f'job/{self.job_id}', json={
+        self.client.put(f'job/job_status/{self.job_id}', json={
             "status": JOB_STATUS_COMPLETE
         })
 
