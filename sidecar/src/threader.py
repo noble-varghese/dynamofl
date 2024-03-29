@@ -195,7 +195,6 @@ def cleanup_threads():
     for thread_id, thread in THREADS.items():
         print(f"Terminating thread {thread_id}")
         # Assuming threads have a method to signal them to stop
-        thread.stop()  # This method needs to be implemented in your thread class
         print(f"Joining on thread {thread_id}")
         thread.join()
     print("All threads terminated")
