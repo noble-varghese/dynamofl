@@ -19,7 +19,7 @@ export const generateInputFile = async (jobId) => {
     }
 }
 
-export const csvGeneratorHandler = async (req, res, next) => {
+export const inputFileHandler = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         // Return 400 status code with validation errors
