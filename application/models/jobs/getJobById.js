@@ -10,6 +10,7 @@ export const getJobById = async (id) => {
     const result = {};
     try {
         const row = await pgClient(JOBS_TABLE)
+            .select()
             .where(`id`, id)
 
         result.data = row

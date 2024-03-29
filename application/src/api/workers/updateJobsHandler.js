@@ -23,7 +23,7 @@ export const updateJobsHandler = async (req, res, next) => {
         numRandomValues: req.body.num_random_values,
     }
 
-    logger.info(`JobID:  ${store.jobId}`)
+    logger.info(`JobID: ${store.jobId}`)
 
     const result1 = getJobById(store.jobId)
     if (result1.err) {
