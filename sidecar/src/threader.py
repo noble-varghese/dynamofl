@@ -38,15 +38,15 @@ class Worker:
                 job_data = job_data[1]  # Extracting the job data
                 print("Worker creation packet detected. Signaling to add a new worker.")
                 self.packet_info['packet'] = json.loads(job_data)
-                self.remove_thread(self.thread_id)  # Delete existing thread
+                self.remove_thread()  # Delete existing thread
                 self.event.set()  # Set the event to signal the main process
                 return  # Exit the current worker
             else:
                 print(
                     f"No jobs in the queue {self.worker_id} | {self.thread_id}")
 
-    def remove_thread(self, id):
-        del THREADS[id]
+    def remove_thread(self):
+        del THREADS[self.remove_thread]
 
     def set_worker_status_running(self):
         self.client.put(f'worker/{self.worker_id}', json={
@@ -84,6 +84,7 @@ class Worker:
                 # If the consumer started and if no more packet is present, then we can safely exit the thread
                 if is_started:
                     self.set_worker_status_completed()
+                    self.remove_thread()
                     return
 
     def store_jobs(self, jobs):
@@ -140,7 +141,6 @@ def main():
         THREADS[thread_id] = t
         t.daemon = True
         t.start()
-    start = time.time()
     while True:  # Continuously check for the event being set
         if event.is_set():
             print("Adding a new worker due to special packet.", event.__dict__)
