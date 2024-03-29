@@ -1,7 +1,7 @@
 import json
 import redis
 import threading
-# from threading import 
+# from threading import
 import atexit
 from uuid import uuid4
 import time
@@ -116,7 +116,7 @@ def main():
         THREADS[thread_id] = t
         t.daemon = True
         t.start()
-
+    start = time.time()
     while True:  # Continuously check for the event being set
         if event.is_set():
             print("Adding a new worker due to special packet.", event.__dict__)
@@ -137,6 +137,9 @@ def main():
         for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
             print('joining...', thread_id)
             thread.join()
+
+        if time.time()-start > 10:
+            return
 
 
 def signal_handler(sig, frame):
