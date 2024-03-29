@@ -9,6 +9,7 @@ import fs from "fs"
 import { logger } from "../../logger/logger.js"
 import { getJobById } from "../../models/jobs/getJobById.js"
 import { parse } from 'csv-parse';
+import path from 'path';
 
 
 const arrayToCSV = (data) => {
