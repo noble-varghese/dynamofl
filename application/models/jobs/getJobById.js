@@ -16,6 +16,7 @@ export const getJobById = async (id) => {
 
     } catch (e) {
         result.err = e;
+        logger.error(e)
     }
     return result;
 }

@@ -27,7 +27,7 @@ export const updateJobsHandler = async (req, res, next) => {
         )
     }
     console.log(result1.data)
-    if (result1.data.length == 0) {
+    if (result1.data == undefined || result1.data.length == 0) {
         return next(
             new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "job doesn't exist")
         )
