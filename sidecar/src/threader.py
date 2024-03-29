@@ -141,6 +141,9 @@ def main():
         THREADS[thread_id] = t
         t.daemon = True
         t.start()
+    for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
+        print('joining...', thread_id)
+        thread.join()
     while True:  # Continuously check for the event being set
         if event.is_set():
             print("Adding a new worker due to special packet.", event.__dict__)
@@ -156,11 +159,6 @@ def main():
 
             # Ensure all threads are joined before checking the event again
             # Add logic here to add a new worker based on your job configuration
-
-        # If the event is not set, sleep for a short period to avoid busy-waiting
-        for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
-            print('joining...', thread_id)
-            thread.join()
 
 
 def signal_handler(sig, frame):
