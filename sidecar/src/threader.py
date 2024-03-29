@@ -50,7 +50,6 @@ class Worker:
             if job_data:
                 is_started = True
                 job_data = job_data[1]  # Extracting the job data
-                print("Special packet detected. Signaling to add a new worker.")
                 # self.packet_info['packet'] = job_data
                 # self.event.set()  # Set the event to signal the main process
                 # return  # Exit the current worker

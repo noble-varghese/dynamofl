@@ -45,6 +45,8 @@ export const getJobStatusHandler = async (req, res, next) => {
         created_at: result.data[0].created_at,
         updated_at: result.data[0].updated_at,
         queue_name: result.data[0].worker_queue_name,
+        curr_queue_length: redisQueueLength(result.data[0].worker_queue_name),
+
     }
     req.data = { ...jobData, worker_data: workerData }
     responseHandler(req, res, next)

@@ -4,6 +4,7 @@ import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { getJobStatus } from "../../../models/jobs/getJobStatus.js"
 import { getAllJobs } from "../../../models/jobs/getAllJobs.js"
+import { redisQueueLength } from "../../utils/redisUtils.js"
 
 
 export const getAllJobStatusHandler = async (req, res, next) => {
@@ -31,6 +32,7 @@ export const getAllJobStatusHandler = async (req, res, next) => {
                 rand_num_count: obj.rand_num_count,
                 worker_count: obj.worker_count,
                 queue_name: obj.worker_queue_name,
+                curr_queue_length: redisQueueLength(obj.worker_queue_name),
                 status: obj.status,
                 created_at: obj.created_at,
                 updated_at: obj.updated_at,

@@ -14,3 +14,17 @@ export const redisRPush = async (key, data) => {
     }
     return res
 }
+
+export const redisQueueLength = async (key) => {
+    logger.debug("getting queue length")
+    const res = {}
+    try {
+        const data = await redisClient.lLen(key)
+        res.data = data
+    } catch (err) {
+        res.err = err
+        logger.error("redis queueLength failed: ", err)
+        throw Error(err)
+    }
+    return res
+}
