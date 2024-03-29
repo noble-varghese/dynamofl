@@ -14,7 +14,7 @@ export const getJobStatusHandler = async (req, res, next) => {
         )
     }
     const store = {
-        jobId: req.params.tab_id
+        jobId: req.params.job_id
     }
     const result = await getJobStatus(store.jobId)
     if (result.err) {

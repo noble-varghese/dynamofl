@@ -1,7 +1,9 @@
 import { validationResult } from "express-validator"
 import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
-import { CLIENT_ERROR, SERVER_ERROR } from "../../utils/custom-error-codes.js"
+import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-codes.js"
+import { updateJob } from "../../../models/jobs/updateJob.js"
+import { getJobById } from "../../../models/jobs/getJobById.js"
 
 
 export const createJobsHandler = async (req, res, next) => {
@@ -13,8 +15,42 @@ export const createJobsHandler = async (req, res, next) => {
         )
     }
     const store = {
-        count: req.body.count,
+        numFiles: req.body.num_files,
+        numRandomValues: req.body.num_random_values,
+        jobId: req.params.job_id
     }
-    req.data = "Initiating Job Creation Process!"
+
+    const result1 = getJobById(store.jobId)
+    if (result1.err) {
+        return next(
+            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result1.err)
+        )
+    }
+
+    if (result1.data.length == 0) {
+        return next(
+            new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "job doesn't exist")
+        )
+    }
+
+
+    const result2 = await updateJob(store.jobId, {
+        num_files: store.numFiles,
+        num_random_values: store.numRandomValues
+    })
+    if (result2.err) {
+        return next(
+            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result2.err)
+        )
+    }
+
+    const result3 = getJobById(store.jobId)
+    if (result3.err) {
+        return next(
+            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result3.err)
+        )
+    }
+
+    req.data = result3
     responseHandler(req, res, next)
 }

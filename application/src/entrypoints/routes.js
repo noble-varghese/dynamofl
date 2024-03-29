@@ -28,9 +28,9 @@ export const defineRoutes = (app) => {
     );
 
     router.get(
-        "/job/:tab_id",
+        "/job/:job_id",
         [
-            param('tab_id')
+            param('job_id')
                 .notEmpty()
                 .trim()
                 .isUUID(),
@@ -46,7 +46,7 @@ export const defineRoutes = (app) => {
     );
 
     router.post(
-        "/job",
+        "/job/:job_id",
         [
             body('num_files')
                 .notEmpty().withMessage('num_files is required.')

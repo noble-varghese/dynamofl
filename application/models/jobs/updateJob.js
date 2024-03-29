@@ -4,14 +4,13 @@ import { JOBS_TABLE } from "../tables.js";
 
 
 
-export const createJob = async (data) => {
+export const updateJob = async (id, data) => {
     const result = {};
     try {
         logger.info("Creating new job...")
-        await pgClient(JOBS_TABLE).insert({
-            ...data,
-            id: randomUUID()
-        })
+        await pgClient(JOBS_TABLE)
+            .update(data)
+            .where('id', id)
     } catch (e) {
         result.err = e;
     }
