@@ -19,6 +19,7 @@ const arrayToCSV = (data) => {
 export const generateOutputCSV = async (jobId) => {
     logger.info('1')
     const folderPath = outputFolderPath(jobId)
+    logger.info(folderPath)
     logger.info('2')
     const files = fs.readdir(folderPath);
     logger.info('3')
