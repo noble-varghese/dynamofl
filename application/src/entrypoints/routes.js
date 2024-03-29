@@ -3,7 +3,7 @@ import ErrorHandlerClass from "../utils/errorHandlerClass.js";
 import { NOT_FOUND } from "../utils/custom-error-codes.js";
 import responseHandler from "../middlewares/responseHandler.js";
 import { createWorkerHandler } from "../api/workers/createWorkerHandler.js";
-import { createJobsHandler } from "../api/workers/createJobsHandler.js";
+import { updateJobsHandler } from "../api/workers/updateJobsHandler.js";
 import { body, param } from "express-validator";
 import { getJobStatusHandler } from "../api/workers/getJobStatusHandler.js";
 import { getAllJobStatusHandler } from "../api/workers/getAllJobStatusHandler.js";
@@ -45,7 +45,7 @@ export const defineRoutes = (app) => {
         getAllJobStatusHandler
     );
 
-    router.post(
+    router.put(
         "/job/:job_id",
         [
             body('num_files')
@@ -55,7 +55,7 @@ export const defineRoutes = (app) => {
                 .notEmpty().withMessage('num_random_values is required.')
                 .isInt().withMessage('num_random_values must be an integer.')
         ],
-        createJobsHandler
+        updateJobsHandler
     );
 
     router.put(

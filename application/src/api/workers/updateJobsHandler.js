@@ -6,7 +6,7 @@ import { updateJob } from "../../../models/jobs/updateJob.js"
 import { getJobById } from "../../../models/jobs/getJobById.js"
 
 
-export const createJobsHandler = async (req, res, next) => {
+export const updateJobsHandler = async (req, res, next) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         // Return 400 status code with validation errors
