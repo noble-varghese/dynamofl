@@ -39,6 +39,8 @@ class Worker:
                 self.remove_thread(self.thread_id)  # Delete existing thread
                 self.event.set()  # Set the event to signal the main process
                 return  # Exit the current worker
+            else:
+                print(f"No jobs in the queue {self.worker_id} | {self.thread_id}")
 
     def remove_thread(self, id):
         del THREADS[id]
@@ -56,7 +58,7 @@ class Worker:
                 self.process_job(job_data)
             else:
                 print(
-                    f"No jobs in the queue {self.worker_id} | {self.thread_id} Exiting worker.")
+                    f"No jobs in the queue {self.worker_id} | {self.thread_id}")
                 # If the consumer started and if no more packet is present, then we can safely exit the thread
                 if is_started:
                     return
