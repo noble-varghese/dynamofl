@@ -13,8 +13,7 @@ import { parse } from 'csv-parse';
 
 export const generateInputFile = async (jobId) => {
     const records = [];
-    const directoryPath = inputCsvFilePath(jobId)
-    const filePath = `${directoryPath}/input_file.csv`
+    const filePath = inputCsvFilePath(jobId)
     const parser = fs.createReadStream(filePath).pipe(parse({ delimiter: ',' }));
 
     for await (const record of parser) {
@@ -23,8 +22,7 @@ export const generateInputFile = async (jobId) => {
 }
 
 const checkFileExists = (jobId) => {
-    const directoryPath = inputCsvFilePath(jobId)
-    const path = `${directoryPath}/input_file.csv`
+    const path = inputCsvFilePath(jobId)
     logger.warn(path)
 
     return fs.existsSync(path)
