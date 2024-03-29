@@ -1,4 +1,4 @@
-import { validationResult } from "express-validator"
+import { header, validationResult } from "express-validator"
 import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, FORBIDDEN, NOT_FOUND, SERVER_ERROR } from "../../utils/custom-error-codes.js"
@@ -41,7 +41,7 @@ export const generateOutputCSV = async (jobId) => {
     for (const data of allData.slice(1)) {
         logger.info(data, avg)
         // Adds the corresponding elements in each position.
-        avg = avg.map((num, index) => num + data[index]);
+        avg = avg.map((num, index) => parseFloat(num) + parseFloat(data[index]));
     }
 
     allData.push(avg)

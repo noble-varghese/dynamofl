@@ -44,7 +44,7 @@ class Worker:
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
         df = pd.DataFrame([data])
-        df.to_csv(file_path, index=False)
+        df.to_csv(file_path, index=False, header=False)
         print(f'Saved file - {path}')
 
     def poll_worker_queue(self):
