@@ -7,12 +7,17 @@ import { IN_PROGRESS, JOB_PROCESS_MESSAGE } from "../../utils/constants.js";
 import fs from "fs"
 
 
-function arrayToCSV(data) {
+const arrayToCSV = (data) => {
     return data.map(row => row.join(',')).join('\n');
 }
 
-function saveCSVToDisk(csvData, filename) {
-    fs.writeFileSync(filename, csvData);
+const createFolder = (folderPath) => {
+    fs.mkdirSync(folderPath, { recursive: true });
+}
+
+const saveCSVToDisk = (csvData, filename) => {
+    // Save CSV data to file
+    fs.writeFileSync(filePath, csvData);
     logger.info(`CSV file saved as ${filename}`);
 }
 
@@ -29,8 +34,15 @@ const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCoun
             random_nums: nums,
         }))
     }
-    // const fileName = `./job_files/${jobId}/input_data/input_file.csv`
-    // saveCSVToDisk(arrayToCSV(data),)
+    // Create outputfiles folder
+    createFolder(`./job_files/${jobId}/output_data/`)
+
+    // Create input files folder
+    createFolder(`./job_files/${jobId}/input_data/`)
+
+    // Save the input file in the path
+    const fileName = `./job_files/${jobId}/input_data/input_file.csv`
+    saveCSVToDisk(arrayToCSV(data), fileName)
 }
 
 
