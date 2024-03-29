@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "a7d85773-7edb-4417-8f51-b8645f343470",
+		"name": "DynamoFL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29797089"
+	},
+	"item": [
+		{
+			"name": "Orchestrator",
+			"item": [
+				{
+					"name": "Ping API",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ping API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/v1/ping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Workers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"count\": 5}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/v1/worker",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"worker"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Job By ID",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Update Job Params",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/v1/worker",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"v1",
+						"worker"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllJobs",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateWorkerStatus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://13.215.183.121:4000/v1/job/6e83d169-e08d-4516-bf8e-8f748146585b",
+					"protocol": "http",
+					"host": [
+						"13",
+						"215",
+						"183",
+						"121"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"job",
+						"6e83d169-e08d-4516-bf8e-8f748146585b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetWorkerById",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
