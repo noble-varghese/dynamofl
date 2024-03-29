@@ -1,7 +1,7 @@
 import { validationResult } from "express-validator"
 import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
-import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-codes.js"
+import { CLIENT_ERROR, FORBIDDEN, NOT_FOUND, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { getJobStatus } from "../../models/jobs/getJobStatus.js"
 import { redisQueueLength } from "../../utils/redisUtils.js"
 import { outputFolderPath } from "../../models/jobs/updateJobAndSendToQueue.js"
@@ -13,11 +13,23 @@ export const generateInputFile = async (jobId) => {
     const records = [];
     const directoryPath = outputFolderPath(jobId)
     const filePath = `${directoryPath}/input_file.csv`
-    const parser = fs.createReadStream('./data.csv').pipe(parse({ delimiter: ',' }));
+    const parser = fs.createReadStream(filePath).pipe(parse({ delimiter: ',' }));
 
     for await (const record of parser) {
         records.push(record);
     }
+}
+
+const checkFileExists = (path) => {
+    const directoryPath = outputFolderPath(jobId)
+    const path = `${directoryPath}/input_file.csv`
+    fs.access(path, fs.constants.F_OK, (err) => {
+        if (err) {
+            logger.error('File does not exist');
+            return false;
+        }
+    })
+    return true
 }
 
 export const inputFileHandler = async (req, res, next) => {
@@ -43,6 +55,14 @@ export const inputFileHandler = async (req, res, next) => {
             new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "job doesn't exist")
         )
     }
+
+    const isFileExists = checkFileExists(jobId)
+    if (!isFileExists) {
+        return next(
+            new ErrorHandlerClass(NOT_FOUND.statusCode, NOT_FOUND.message, "The job is still processing or is not complete.")
+        )
+    }
+
     res.setHeader('Content-Type', 'text/csv');
     // Set Content-Disposition header to indicate attachment and file name
     res.setHeader('Content-Disposition', 'attachment; filename="data.csv"');
