@@ -3,7 +3,7 @@ import { JOBS_TABLE } from "../tables.js";
 import { logger } from "../../src/logger/logger.js";
 import { redisRPush } from "../../src/utils/redisUtils.js";
 import { generateRandomNumbers } from "../../src/utils/generateRandomNumbers.js";
-import { JOB_PROCESS_MESSAGE } from "../../src/utils/constants.js";
+import { IN_PROGRESS, JOB_PROCESS_MESSAGE } from "../../src/utils/constants.js";
 
 const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCount) => {
 
