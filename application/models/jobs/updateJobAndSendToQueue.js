@@ -38,7 +38,7 @@ export const updateJobAndSendToQueue = async (queueName, id, data) => {
     } catch (err) {
         await trx.rollback()
         logger.error("Rollback in progress.", err)
-        res.err = err
+        result.err = err
     }
     return result;
 }   
