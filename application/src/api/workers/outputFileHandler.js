@@ -87,6 +87,7 @@ export const outputFileHandler = async (req, res, next) => {
             new ErrorHandlerClass(NOT_FOUND.statusCode, NOT_FOUND.message, "The job is still processing or is not complete.")
         )
     }
+    const file_num = result1.data[0]['files_num']
     logger.info("Reaches this point ....")
 
     res.setHeader('Content-Type', 'text/csv');
