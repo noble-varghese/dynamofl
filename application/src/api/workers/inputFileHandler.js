@@ -64,8 +64,7 @@ export const inputFileHandler = async (req, res, next) => {
     res.setHeader('Content-Type', 'text/csv');
     // Set Content-Disposition header to indicate attachment and file name
     res.setHeader('Content-Disposition', 'attachment; filename="data.csv"');
-    const csvData = generateInputFile(store.jobId)
-    logger.info(csvData)
+    const csvData = await generateInputFile(store.jobId)
     res.send(csvData);
     return
 }
