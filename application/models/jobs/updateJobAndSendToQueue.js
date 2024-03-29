@@ -22,7 +22,7 @@ const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCoun
 
 
 export const updateJobAndSendToQueue = async (queueName, id, data) => {
-    const res = {}
+    const result = {}
     // Begin a transaction
     const trx = await pgClient.transaction()
     try {
