@@ -22,6 +22,7 @@ export const generateOutputCSV = async (jobId) => {
     const allData = [];
 
     for (const file of csvFiles) {
+        logger.info(`file path: ${file}`)
         const parser = fs.createReadStream(file).pipe(parse({ delimiter: ',' }));
         for await (const record of parser) {
             allData.push(record);
