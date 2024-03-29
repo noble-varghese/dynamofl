@@ -39,8 +39,8 @@ export const updateJobsHandler = async (req, res, next) => {
     }
 
     const result2 = await updateJob(store.jobId, {
-        num_files: store.numFiles,
-        num_random_values: store.numRandomValues
+        files_num: store.numFiles,
+        rand_num_count: store.numRandomValues
     })
     if (result2.err) {
         return next(
