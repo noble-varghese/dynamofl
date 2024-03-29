@@ -9,6 +9,7 @@ import { getJobStatusHandler } from "../api/workers/getJobStatusHandler.js";
 import { getAllJobStatusHandler } from "../api/workers/getAllJobStatusHandler.js";
 import { updateWorkerStatusHandler } from "../api/workers/updateWorkerStatusHandler.js";
 import { getWorkerByIdHandler } from "../api/workers/getWorkerByIdHandler.js";
+import { updateJobStatusHandler } from "../api/workers/updateJobStatusHandler.js";
 
 export const defineRoutes = (app) => {
     const router = express.Router();
@@ -58,6 +59,17 @@ export const defineRoutes = (app) => {
         ],
         updateJobsHandler
     );
+
+    // Internal API to update status from the consumers
+    router.put(
+        "/job/job_status/:tab_id",
+        [
+            param('tab_id').notEmpty().isUUID(),
+            body('status').notEmpty().isIn(['PENDING', 'IN_PROGRESS', 'COMPLETED', 'FAILED']).withMessage('Invalid value for "status"')
+        ],
+        updateJobStatusHandler
+    );
+
 
     router.put(
         "/worker/:worker_id",

@@ -35,7 +35,7 @@ export const updateJobsHandler = async (req, res, next) => {
     logger.info(`${result1.data}`)
     if (result1.data == undefined || result1.data.length == 0) {
         return next(
-            new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "job doesn't exist")
+            new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "Job doesn't exist or Job has already been created.")
         )
     }
 
@@ -51,12 +51,12 @@ export const updateJobsHandler = async (req, res, next) => {
         )
     }
 
-        const result3 = await getJobById(store.jobId)
-        if (result3.err) {
-            return next(
-                new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result3.err)
-            )
-        }
+    const result3 = await getJobById(store.jobId)
+    if (result3.err) {
+        return next(
+            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result3.err)
+        )
+    }
 
     req.data = result3
     responseHandler(req, res, next)

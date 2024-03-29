@@ -9,7 +9,8 @@ import { getPendingJobById } from "../../../models/jobs/getPendingJobById.js"
 import { updateJobById } from "../../../models/jobs/updateJobById.js"
 
 
-export const updateJobsHandler = async (req, res, next) => {
+export const updateJobStatusHandler = async (req, res, next) => {
+    // Internal API to be used by the consumers
     logger.info("Inside update jobs handler...")
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
