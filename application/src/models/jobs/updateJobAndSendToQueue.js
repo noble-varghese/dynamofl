@@ -15,10 +15,10 @@ const createFolder = (folderPath) => {
     fs.mkdirSync(folderPath, { recursive: true });
 }
 
-const saveCSVToDisk = (csvData, filename) => {
+const saveCSVToDisk = (csvData, filePath) => {
     // Save CSV data to file
     fs.writeFileSync(filePath, csvData);
-    logger.info(`CSV file saved as ${filename}`);
+    logger.info(`CSV file saved as ${filePath}`);
 }
 
 const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCount) => {
