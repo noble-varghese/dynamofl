@@ -3,7 +3,7 @@ import { logger } from "../logger/logger.js"
 
 
 export const redisRPush = async (key, data) => {
-    logger.info("redis rpush on packet")
+    logger.info(`redis rpush on packet ${key}`)
     const res = {}
     try {
         await redisClient.rPush(key, data)
