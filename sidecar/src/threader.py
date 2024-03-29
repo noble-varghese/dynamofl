@@ -183,5 +183,3 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
     while True:
         main()
-        print('Waiting for threads to complete....')
-        time.sleep(10)
