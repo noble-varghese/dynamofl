@@ -6,7 +6,7 @@ import atexit
 from uuid import uuid4
 import time
 import signal
-from constants import OUTPUT_FILE_PATH, WORKER_CREATION_QUEUE, WORKER_WAITING_FOR_PACKETS_STATUS, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
+from constants import JOB_STATUS_COMPLETE, WORKER_CREATION_QUEUE, WORKER_WAITING_FOR_PACKETS_STATUS, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
 from client import Client
 import pandas as pd
 import os
@@ -17,11 +17,12 @@ event = threading.Event()
 
 
 class Worker:
-    def __init__(self, queue_name, worker_id, thread_id, event, packet_info):
+    def __init__(self, queue_name, worker_id, job_id, thread_id, event, packet_info):
         self.worker_id = worker_id
         self.queue_name = queue_name
         self.thread_id = thread_id
         self.event = event
+        self.job_id = job_id
         self.packet_info = packet_info
         self.client = Client(base_url="http://13.215.183.121:5000/v1")
         self.redis_conn = redis.Redis(
@@ -80,6 +81,11 @@ class Worker:
             "status": WORKER_WAITING_FOR_PACKETS_STATUS
         })
 
+    def set_job_status_complete(self):
+        self.client.put(f'job/{self.job_id}', json={
+            "status": JOB_STATUS_COMPLETE
+        })
+
     def packet_consumer(self):
         is_started = False  # Tracker to check if queue has started
         self.set_worker_waiting_for_pkt()
@@ -97,6 +103,7 @@ class Worker:
                 # If the consumer started and if no more packet is present, then we can safely exit the thread
                 if is_started:
                     self.set_worker_status_completed()
+                    self.set_job_status_complete()
                     self.remove_thread()
                     return
 
@@ -117,8 +124,9 @@ def create_shared_event_and_dict():
     return event, packet_info
 
 
-def worker_thread(queue_name, worker_id, thread_id, event, packet_info):
-    worker = Worker(queue_name, worker_id, thread_id, event, packet_info)
+def worker_thread(queue_name, worker_id, job_id, thread_id, event, packet_info):
+    worker = Worker(queue_name, worker_id, job_id,
+                    thread_id, event, packet_info)
     if queue_name == WORKER_CREATION_QUEUE:
         worker.poll_worker_queue()
     else:
@@ -128,7 +136,7 @@ def worker_thread(queue_name, worker_id, thread_id, event, packet_info):
 def create_worker_creation_thread(worker_id, event, packet_info):
     thread_id = f"main_thread_{str(uuid4())}"
     t = threading.Thread(target=worker_thread, args=(
-        WORKER_CREATION_QUEUE, worker_id, thread_id, event, packet_info))
+        WORKER_CREATION_QUEUE, worker_id, '', thread_id, event, packet_info))
     t.daemon = True
     return thread_id, t
 
@@ -150,7 +158,7 @@ def main():
     for _, v in WORKERS.items():
         thread_id = f"worker_thread_{str(uuid4())}"
         t = threading.Thread(target=worker_thread, args=(
-            v['queue_name'], v['worker_id'], thread_id, event, packet_info))
+            v['queue_name'], v['worker_id'], v['job_id'], thread_id, event, packet_info))
         THREADS[thread_id] = t
         t.daemon = True
         t.start()
