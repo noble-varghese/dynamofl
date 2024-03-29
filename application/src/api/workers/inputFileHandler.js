@@ -4,7 +4,7 @@ import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, FORBIDDEN, NOT_FOUND, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { getJobStatus } from "../../models/jobs/getJobStatus.js"
 import { redisQueueLength } from "../../utils/redisUtils.js"
-import { outputFolderPath } from "../../models/jobs/updateJobAndSendToQueue.js"
+import { inputCsvFilePath, outputFolderPath } from "../../models/jobs/updateJobAndSendToQueue.js"
 import fs from "fs"
 import { logger } from "../../logger/logger.js"
 import { getJobById } from "../../models/jobs/getJobById.js"
@@ -13,7 +13,7 @@ import { parse } from 'csv-parse';
 
 export const generateInputFile = async (jobId) => {
     const records = [];
-    const directoryPath = outputFolderPath(jobId)
+    const directoryPath = inputCsvFilePath(jobId)
     const filePath = `${directoryPath}/input_file.csv`
     const parser = fs.createReadStream(filePath).pipe(parse({ delimiter: ',' }));
 
@@ -23,10 +23,10 @@ export const generateInputFile = async (jobId) => {
 }
 
 const checkFileExists = (jobId) => {
-    const directoryPath = outputFolderPath(jobId)
+    const directoryPath = inputCsvFilePath(jobId)
     const path = `${directoryPath}/input_file.csv`
     logger.warn(path)
-    
+
     return fs.existsSync(path)
 }
 

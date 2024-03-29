@@ -23,7 +23,7 @@ const saveCSVToDisk = (csvData, filePath) => {
     logger.info(`CSV file saved as ${filePath}`);
 }
 
-const inputCsvFilePath = (jobId) => {
+export const inputCsvFilePath = (jobId) => {
     const homeFolder = os.homedir();
     const jobFolderPath = path.join(homeFolder, 'job_files', `${jobId}`, 'input_data');
     const filePath = path.join(jobFolderPath, 'input_file.csv');
