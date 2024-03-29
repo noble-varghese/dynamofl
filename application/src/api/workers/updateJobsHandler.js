@@ -5,6 +5,7 @@ import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-
 import { updateJobAndSendToQueue } from "../../../models/jobs/updateJobAndSendToQueue.js"
 import { getJobById } from "../../../models/jobs/getJobById.js"
 import { logger } from "../../logger/logger.js"
+import { getPendingJobById } from "../../../models/jobs/getPendingJobById.js"
 
 
 export const updateJobsHandler = async (req, res, next) => {
@@ -25,7 +26,7 @@ export const updateJobsHandler = async (req, res, next) => {
 
     logger.info(`JobID: ${store.jobId}`)
 
-    const result1 = await getJobById(store.jobId)
+    const result1 = await getPendingJobById(store.jobId)
     if (result1.err) {
         return next(
             new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result1.err)
