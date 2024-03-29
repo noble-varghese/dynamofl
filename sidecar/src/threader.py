@@ -162,9 +162,6 @@ def main():
             print('joining...', thread_id)
             thread.join()
 
-        if time.time()-start > 10:
-            return
-
 
 def signal_handler(sig, frame):
     event.set()
@@ -186,4 +183,5 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
     while True:
         main()
-        print(WORKERS)
+        print('Waiting for threads to complete....')
+        time.sleep(10)
