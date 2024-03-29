@@ -27,7 +27,7 @@ class Worker:
 
     def process_job(self, job_data):
         # Simulate processing time
-        time.sleep(2)
+        # time.sleep(2)
         # Process job data
         print("Processing job:", job_data)
 
