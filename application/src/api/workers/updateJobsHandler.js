@@ -17,9 +17,9 @@ export const updateJobsHandler = async (req, res, next) => {
         )
     }
     const store = {
+        jobId: req.params.jobs_id,
         numFiles: req.body.num_files,
         numRandomValues: req.body.num_random_values,
-        jobId: req.params.job_id
     }
 
     logger.info("JobID: ", store.jobId)

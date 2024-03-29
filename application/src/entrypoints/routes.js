@@ -46,9 +46,9 @@ export const defineRoutes = (app) => {
     );
 
     router.put(
-        "/job/:job_id",
+        "/job/:jobs_id",
         [
-            param('job_id').notEmpty().isUUID(),
+            param('jobs_id').notEmpty().isUUID(),
             body('num_files')
                 .notEmpty().withMessage('num_files is required.')
                 .isInt().withMessage('num_files must be an integer.'),
