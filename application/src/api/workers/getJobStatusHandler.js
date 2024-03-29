@@ -3,6 +3,7 @@ import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { getJobStatus } from "../../../models/jobs/getJobStatus.js"
+import { redisQueueLength } from "../../utils/redisUtils.js"
 
 
 export const getJobStatusHandler = async (req, res, next) => {
