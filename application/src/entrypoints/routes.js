@@ -8,6 +8,7 @@ import { body, param } from "express-validator";
 import { getJobStatusHandler } from "../api/workers/getJobStatusHandler.js";
 import { getAllJobStatusHandler } from "../api/workers/getAllJobStatusHandler.js";
 import { updateWorkerStatusHandler } from "../api/workers/updateWorkerStatusHandler.js";
+import { getWorkerByIdHandler } from "../api/workers/getWorkerByIdHandler.js";
 
 export const defineRoutes = (app) => {
     const router = express.Router();
@@ -64,6 +65,14 @@ export const defineRoutes = (app) => {
             body('status').notEmpty().isIn(['PENDING', 'WAITING_FOR_PACKETS', 'RUNNING', 'COMPLETED', 'FAILED']).withMessage('Invalid value for "status"')
         ],
         updateWorkerStatusHandler
+    )
+
+    router.get(
+        "/worker/:worker_id",
+        [
+            param('worker_id').notEmpty().isUUID(),
+        ],
+        getWorkerByIdHandler
     )
 
 
