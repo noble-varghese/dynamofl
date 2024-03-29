@@ -17,9 +17,15 @@ const arrayToCSV = (data) => {
 }
 
 export const generateOutputCSV = async (jobId) => {
+    logger.info('1')
     const folderPath = outputFolderPath(jobId)
+    logger.info('2')
     const files = fs.readdir(folderPath);
+    logger.info('3')
+
     const csvFiles = files.filter(file => path.extname(file).toLowerCase() === '.csv');
+    logger.info('4')
+
     const allData = [];
 
     for (const file of csvFiles) {
