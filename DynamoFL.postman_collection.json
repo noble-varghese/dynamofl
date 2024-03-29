@@ -135,6 +135,14 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "Update Job Status (Internal API)",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }
