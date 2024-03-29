@@ -16,7 +16,7 @@ const arrayToCSV = (data) => {
     return data.map(row => row.join(',')).join('\n');
 }
 
-export const generateOutputCSV = async (jobId) => {
+export const generateOutputCSV = async (jobId, fileNum) => {
     logger.info('1')
     const folderPath = outputFolderPath(jobId)
     logger.info(folderPath)
@@ -38,15 +38,17 @@ export const generateOutputCSV = async (jobId) => {
     }
     logger.info("Getting the average value")
     let avg = allData[0]
+    let newData = []
     for (const data of allData.slice(1)) {
         logger.info(data, avg)
         // Adds the corresponding elements in each position.
         avg = avg.map((num, index) => parseFloat(num) + parseFloat(data[index]));
+        newData.push(data.map(num => num * fileNum))
     }
 
-    allData.push(avg)
+    newData.push(avg)
 
-    return arrayToCSV(allData)
+    return arrayToCSV(newData)
 }
 
 const checkFileExists = (jobId) => {
@@ -93,7 +95,7 @@ export const outputFileHandler = async (req, res, next) => {
     res.setHeader('Content-Type', 'text/csv');
     // Set Content-Disposition header to indicate attachment and file name
     res.setHeader('Content-Disposition', 'attachment; filename="output_file.csv"');
-    const csvData = await generateOutputCSV(store.jobId)
+    const csvData = await generateOutputCSV(store.jobId, file_num)
     res.send(csvData);
     return
 }
