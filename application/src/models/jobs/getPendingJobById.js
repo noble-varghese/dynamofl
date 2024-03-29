@@ -1,8 +1,8 @@
-import { pgClient } from "../../src/data-loaders/index.js";
+import { pgClient } from "../../data-loaders/index.js";
 import { randomUUID } from "crypto";
 import { JOBS_TABLE, WORKERS_TABLE } from "../tables.js";
-import { logger } from "../../src/logger/logger.js";
-import { PENDING_STATUS } from "../../src/utils/constants.js";
+import { logger } from "../../logger/logger.js";
+import { PENDING_STATUS } from "../../utils/constants.js";
 
 
 

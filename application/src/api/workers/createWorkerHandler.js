@@ -4,7 +4,7 @@ import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { WORKER_CREATION_QUEUE, WORKER_CREATION_MESSAGE } from "../../utils/constants.js"
 import { pgClient, redisClient } from "../../data-loaders/index.js"
-import { JOBS_TABLE, WORKERS_TABLE } from "../../../models/tables.js"
+import { JOBS_TABLE, WORKERS_TABLE } from "../../models/tables.js"
 import { redisRPush } from "../../utils/redisUtils.js"
 import { logger } from "../../logger/logger.js"
 import { randomUUID } from "crypto";

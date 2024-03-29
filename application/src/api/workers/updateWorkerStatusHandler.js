@@ -2,8 +2,8 @@ import { validationResult } from "express-validator"
 import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-codes.js"
-import { getWorkerById } from "../../../models/jobs/getWorkerById.js"
-import { updateWorkerStatus } from "../../../models/jobs/updateWorkerStatus.js"
+import { getWorkerById } from "../../models/jobs/getWorkerById.js"
+import { updateWorkerStatus } from "../../models/jobs/updateWorkerStatus.js"
 
 
 export const updateWorkerStatusHandler = async (req, res, next) => {

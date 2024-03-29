@@ -2,8 +2,8 @@ import { validationResult } from "express-validator"
 import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, SERVER_ERROR } from "../../utils/custom-error-codes.js"
-import { getJobStatus } from "../../../models/jobs/getJobStatus.js"
-import { getAllJobs } from "../../../models/jobs/getAllJobs.js"
+import { getJobStatus } from "../../models/jobs/getJobStatus.js"
+import { getAllJobs } from "../../models/jobs/getAllJobs.js"
 import { redisQueueLength } from "../../utils/redisUtils.js"
 
 

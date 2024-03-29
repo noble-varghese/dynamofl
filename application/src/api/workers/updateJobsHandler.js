@@ -2,10 +2,10 @@ import { validationResult } from "express-validator"
 import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-codes.js"
-import { updateJobAndSendToQueue } from "../../../models/jobs/updateJobAndSendToQueue.js"
-import { getJobById } from "../../../models/jobs/getJobById.js"
+import { updateJobAndSendToQueue } from "../../models/jobs/updateJobAndSendToQueue.js"
+import { getJobById } from "../../models/jobs/getJobById.js"
 import { logger } from "../../logger/logger.js"
-import { getPendingJobById } from "../../../models/jobs/getPendingJobById.js"
+import { getPendingJobById } from "../../models/jobs/getPendingJobById.js"
 
 
 export const updateJobsHandler = async (req, res, next) => {

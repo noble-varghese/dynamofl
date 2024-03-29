@@ -1,9 +1,9 @@
-import { pgClient } from "../../src/data-loaders/index.js";
+import { pgClient } from "../../data-loaders/index.js";
 import { JOBS_TABLE } from "../tables.js";
-import { logger } from "../../src/logger/logger.js";
-import { redisRPush } from "../../src/utils/redisUtils.js";
-import { generateRandomNumbers } from "../../src/utils/generateRandomNumbers.js";
-import { IN_PROGRESS, JOB_PROCESS_MESSAGE } from "../../src/utils/constants.js";
+import { logger } from "../../logger/logger.js";
+import { redisRPush } from "../../utils/redisUtils.js";
+import { generateRandomNumbers } from "../../utils/generateRandomNumbers.js";
+import { IN_PROGRESS, JOB_PROCESS_MESSAGE } from "../../utils/constants.js";
 
 const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCount) => {
 
