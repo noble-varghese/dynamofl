@@ -70,7 +70,9 @@ class Worker:
         while not self.event.is_set():
             job_data = self.redis_conn.blpop(self.queue_name, timeout=1)
             if job_data:
-                is_started = True
+                if not is_started:
+                    self.set_worker_status_running()
+                    is_started = True
                 job_data = job_data[1]  # Extracting the job data
                 # self.packet_info['packet'] = job_data
                 # self.event.set()  # Set the event to signal the main process
