@@ -90,7 +90,7 @@ export const defineRoutes = (app) => {
     )
 
     router.get(
-        "input_csv/:job_id",
+        "/input_csv/:job_id",
         [
             param('job_id').notEmpty().isUUID(),
         ],
