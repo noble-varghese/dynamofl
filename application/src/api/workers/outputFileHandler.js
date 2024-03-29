@@ -21,7 +21,7 @@ export const generateOutputCSV = async (jobId) => {
     const folderPath = outputFolderPath(jobId)
     logger.info(folderPath)
     logger.info('2')
-    const files = fs.readdir(folderPath);
+    const files = fs.readdirSync(folderPath);
     logger.info('3')
 
     const csvFiles = files.filter(file => path.extname(file).toLowerCase() === '.csv');
