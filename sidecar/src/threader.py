@@ -6,7 +6,7 @@ import atexit
 from uuid import uuid4
 import time
 import signal
-from constants import WORKER_CREATION_QUEUE, WORKER_CREATION_EVENT, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
+from constants import WORKER_CREATION_QUEUE, WORKER_WAITING_FOR_PACKETS_STATUS, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
 from client import Client
 
 WORKERS = {}
@@ -59,9 +59,14 @@ class Worker:
 
         })
 
+    def set_worker_waiting_for_pkt(self):
+        self.client.put(f'worker/', json={
+            "status": WORKER_WAITING_FOR_PACKETS_STATUS
+        })
+
     def packet_consumer(self):
         is_started = False  # Tracker to check if queue has started
-        self.set_worker_status_running()
+        self.set_worker_waiting_for_pkt()
         while not self.event.is_set():
             job_data = self.redis_conn.blpop(self.queue_name, timeout=1)
             if job_data:

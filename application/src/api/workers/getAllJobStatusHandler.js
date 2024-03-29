@@ -46,6 +46,6 @@ export const getAllJobStatusHandler = async (req, res, next) => {
             updated_at: obj.updated_at,
         })
     }
-    req.data = data
+    req.data = Object.values(data)
     responseHandler(req, res, next)
 }
