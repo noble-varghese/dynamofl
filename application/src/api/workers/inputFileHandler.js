@@ -8,6 +8,8 @@ import { outputFolderPath } from "../../models/jobs/updateJobAndSendToQueue.js"
 import fs from "fs"
 import { logger } from "../../logger/logger.js"
 import { getJobById } from "../../models/jobs/getJobById.js"
+import { parse } from 'csv-parse';
+
 
 export const generateInputFile = async (jobId) => {
     const records = [];
