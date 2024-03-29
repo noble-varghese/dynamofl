@@ -30,7 +30,7 @@ const inputCsvFilePath = (jobId) => {
     return filePath;
 }
 
-const outputFolderPath = (jobId) => {
+export const outputFolderPath = (jobId) => {
     const homeFolder = os.homedir();
     const jobFolderPath = path.join(homeFolder, 'job_files', `${jobId}`, 'output_data');
     return jobFolderPath;
