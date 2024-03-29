@@ -1,4 +1,4 @@
-WORKER_CREATION_QUEUE = "worker_creation_queue"
+WORKER_CREATION_QUEUE = "create_worker_queue"
 
 WORKER_CREATION_EVENT = "Worker_Creation"
 WORKER_RUNNING_STATUS = "RUNNING"
