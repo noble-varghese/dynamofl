@@ -25,17 +25,8 @@ export const generateInputFile = async (jobId) => {
 const checkFileExists = (jobId) => {
     const directoryPath = outputFolderPath(jobId)
     const path = `${directoryPath}/input_file.csv`
-    try {
-        fs.access(path, fs.constants.F_OK, (err) => {
-            if (err) {
-                return false;
-            }
-        })
-    } catch (err) {
-        logger.error('File does not exist', err);
-        return false
-    }
-    return true
+    
+    return fs.existsSync(path)
 }
 
 export const inputFileHandler = async (req, res, next) => {
