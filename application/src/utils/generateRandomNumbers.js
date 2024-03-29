@@ -1,4 +1,4 @@
-import { getRandomNumber } from "../nameGenerator/generator"
+import { getRandomNumber } from "../nameGenerator/generator.js"
 
 /**
  * Generates a list of random numbers betweeen the range specified.
