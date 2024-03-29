@@ -41,13 +41,9 @@ export const generateOutputCSV = async (jobId) => {
 const checkFileExists = (jobId) => {
     const path = inputCsvFilePath(jobId)
     logger.warn(path)
-
     return fs.existsSync(path)
 }
 
-const generateOutputCSV = () => {
-
-}
 
 export const outputFileHandler = async (req, res, next) => {
     logger.info("Generating output csv")
