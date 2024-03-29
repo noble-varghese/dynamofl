@@ -5,7 +5,17 @@ import { CLIENT_ERROR, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { getJobStatus } from "../../models/jobs/getJobStatus.js"
 import { getAllJobs } from "../../models/jobs/getAllJobs.js"
 import { redisQueueLength } from "../../utils/redisUtils.js"
+import { inputCsvFilePath } from "../../models/jobs/updateJobAndSendToQueue.js"
+import { logger } from "../../logger/logger.js"
+import fs from "fs"
 
+
+const checkInputFileExists = (jobId) => {
+    const path = inputCsvFilePath(jobId)
+    logger.info(path)
+
+    return fs.existsSync(path)
+}
 
 export const getAllJobStatusHandler = async (req, res, next) => {
     const errors = validationResult(req)
@@ -36,6 +46,7 @@ export const getAllJobStatusHandler = async (req, res, next) => {
                 status: obj.status,
                 created_at: obj.created_at,
                 updated_at: obj.updated_at,
+                input_csv_status: checkInputFileExists(result.data[0].id),
                 worker_data: []
             }
         }

@@ -4,7 +4,17 @@ import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { getJobStatus } from "../../models/jobs/getJobStatus.js"
 import { redisQueueLength } from "../../utils/redisUtils.js"
+import { inputCsvFilePath } from "../../models/jobs/updateJobAndSendToQueue.js"
+import fs from "fs"
+import { logger } from "../../logger/logger.js"
 
+
+const checkInputFileExists = (jobId) => {
+    const path = inputCsvFilePath(jobId)
+    logger.info(path)
+
+    return fs.existsSync(path)
+}
 
 export const getJobStatusHandler = async (req, res, next) => {
     const errors = validationResult(req)
@@ -47,6 +57,7 @@ export const getJobStatusHandler = async (req, res, next) => {
         updated_at: result.data[0].updated_at,
         queue_name: result.data[0].worker_queue_name,
         curr_queue_length: await redisQueueLength(result.data[0].worker_queue_name),
+        input_csv_status: checkInputFileExists(result.data[0].id)
 
     }
     req.data = { ...jobData, worker_data: workerData }
