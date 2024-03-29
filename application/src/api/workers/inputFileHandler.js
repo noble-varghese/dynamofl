@@ -19,6 +19,7 @@ export const generateInputFile = async (jobId) => {
     for await (const record of parser) {
         records.push(record);
     }
+    return records
 }
 
 const checkFileExists = (jobId) => {
