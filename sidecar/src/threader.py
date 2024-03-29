@@ -46,7 +46,7 @@ class Worker:
                     f"No jobs in the queue {self.worker_id} | {self.thread_id}")
 
     def remove_thread(self):
-        del THREADS[self.remove_thread]
+        del THREADS[self.thread_id]
 
     def set_worker_status_running(self):
         self.client.put(f'worker/{self.worker_id}', json={
@@ -141,9 +141,11 @@ def main():
         THREADS[thread_id] = t
         t.daemon = True
         t.start()
+
     for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
         print('joining...', thread_id)
         thread.join()
+
     while True:  # Continuously check for the event being set
         if event.is_set():
             print("Adding a new worker due to special packet.", event.__dict__)
