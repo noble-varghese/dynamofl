@@ -12,7 +12,7 @@ export const getJobById = async (id) => {
         const row = await pgClient(JOBS_TABLE)
             .select('*')
             .where(`id`, id)
-
+        logger.info(`Job data: ${row}`)
         result.data = row
 
     } catch (e) {
