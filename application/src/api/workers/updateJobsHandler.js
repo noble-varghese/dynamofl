@@ -8,6 +8,7 @@ import { logger } from "../../logger/logger.js"
 
 
 export const updateJobsHandler = async (req, res, next) => {
+    logger.info("Inside update jobs handler...")
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         // Return 400 status code with validation errors
