@@ -14,7 +14,7 @@ export const startWebServer = async (cfgFile = null) => {
 
 
     // Helmet helps secure Express apps by setting HTTP response headers.
-    app.use(helmet())
+    // app.use(helmet())
     app.all("/*", function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
