@@ -43,7 +43,7 @@ export const generateOutputCSV = async (jobId, fileNum) => {
         logger.info(data, avg)
         // Adds the corresponding elements in each position.
         avg = avg.map((num, index) => parseFloat(num) + parseFloat(data[index]));
-        newData.push(data.map(num => num * fileNum))
+        newData.push(data.map(num => parseInt(num * fileNum))
     }
 
     newData.push(avg)

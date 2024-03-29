@@ -20,14 +20,7 @@ logger:
   # destination in which the logger should be written, empty value will be considered as stdout
   destination: null
 
-db:
-  # The default database name. Default is empty and must be a string value.
-  dbName: rapiddocs
-
-  # The DB connection URI
-  connectionURI: mongodb+srv://noble-varghese:gh2rw4nwcsmjLx4@rapiddocs.wa7vlet.mongodb.net/?retryWrites=true&w=majority
-
-redis:
+sredis:
   url: redis://test.g369sf.ng.0001.apse1.cache.amazonaws.com:6379
 
 
