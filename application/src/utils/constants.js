@@ -11,3 +11,4 @@ export const susbscriptionStatuses = ["trial", "on", "void", "cancelled"];
 
 export const PENDING_STATUS = "PENDING"
 export const IN_PROGRESS = "IN_PROGRESS"
+export const JOB_STATUS_COMPLETE = "COMPLETED"

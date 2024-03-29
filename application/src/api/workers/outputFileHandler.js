@@ -10,6 +10,7 @@ import { logger } from "../../logger/logger.js"
 import { getJobById } from "../../models/jobs/getJobById.js"
 import { parse } from 'csv-parse';
 import path from 'path';
+import { JOB_STATUS_COMPLETE } from "../../utils/constants.js"
 
 
 const arrayToCSV = (data) => {
@@ -52,9 +53,9 @@ export const generateOutputCSV = async (jobId, fileNum) => {
 }
 
 const checkFileExists = (jobId) => {
-    const path = inputCsvFilePath(jobId)
+    const folder = outputFolderPath(jobId)
     logger.warn(path)
-    return fs.existsSync(path)
+    return fs.existsSync(folder)
 }
 
 
@@ -80,6 +81,12 @@ export const outputFileHandler = async (req, res, next) => {
     if (result1.data == undefined || result1.data.length == 0) {
         return next(
             new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "job doesn't exist")
+        )
+    }
+
+    if (result1.data[0]['status']!= JOB_STATUS_COMPLETE) {
+        return next(
+            new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "Job is still processing")
         )
     }
 
