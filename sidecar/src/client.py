@@ -34,7 +34,7 @@ class Client():
             return response
 
         except httpx.HTTPError as err:
-            print(f'Error while requesting {err.request.url!r}')
+            print(f'Error while requesting {err.request.url!r}', err)
             return None
 
     def is_closed(self):
