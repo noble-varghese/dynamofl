@@ -60,7 +60,7 @@ class Worker:
         })
 
     def set_worker_waiting_for_pkt(self):
-        self.client.put(f'worker/', json={
+        self.client.put(f'worker/{self.worker_id}', json={
             "status": WORKER_WAITING_FOR_PACKETS_STATUS
         })
 
