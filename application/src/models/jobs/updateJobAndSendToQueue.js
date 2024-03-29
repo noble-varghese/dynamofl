@@ -5,6 +5,7 @@ import { redisRPush } from "../../utils/redisUtils.js";
 import { generateRandomNumbers } from "../../utils/generateRandomNumbers.js";
 import { IN_PROGRESS, JOB_PROCESS_MESSAGE } from "../../utils/constants.js";
 import fs from "fs"
+import os from "os"
 
 
 const arrayToCSV = (data) => {
@@ -21,6 +22,25 @@ const saveCSVToDisk = (csvData, filePath) => {
     logger.info(`CSV file saved as ${filePath}`);
 }
 
+const inputCsvFilePath = (jobId) => {
+    const homeFolder = os.homedir();
+    const jobFolderPath = path.join(homeFolder, 'job_files', `${jobId}`, 'input_data');
+    const filePath = path.join(jobFolderPath, 'input_file.csv');
+    return filePath;
+}
+
+const outputFolderPath = (jobId) => {
+    const homeFolder = os.homedir();
+    const jobFolderPath = path.join(homeFolder, 'job_files', `${jobId}`, 'output_data');
+    return jobFolderPath;
+}
+const inputFolderPath = (jobId) => {
+    const homeFolder = os.homedir();
+    const jobFolderPath = path.join(homeFolder, 'job_files', `${jobId}`, 'input_data');
+    return jobFolderPath;
+}
+
+
 const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCount) => {
     const data = []
     for (let i = 0; i < files; i++) {
@@ -35,13 +55,13 @@ const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCoun
         }))
     }
     // Create outputfiles folder
-    createFolder(`~/job_files/${jobId}/output_data/`)
+    createFolder(outputFolderPath(jobId))
 
     // Create input files folder
-    createFolder(`~/job_files/${jobId}/input_data/`)
+    createFolder(inputFolderPath(jobId))
 
     // Save the input file in the path
-    const fileName = `~/job_files/${jobId}/input_data/input_file.csv`
+    const fileName = inputCsvFilePath(jobId)
     saveCSVToDisk(arrayToCSV(data), fileName)
 }
 
