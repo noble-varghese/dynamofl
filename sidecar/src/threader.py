@@ -6,8 +6,10 @@ import atexit
 from uuid import uuid4
 import time
 import signal
-from constants import WORKER_CREATION_QUEUE, WORKER_WAITING_FOR_PACKETS_STATUS, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
+from constants import OUTPUT_FILE_PATH, WORKER_CREATION_QUEUE, WORKER_WAITING_FOR_PACKETS_STATUS, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
 from client import Client
+import pandas as pd
+import os
 
 WORKERS = {}
 THREADS = {}
@@ -26,10 +28,17 @@ class Worker:
             host='test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
 
     def process_job(self, job_data):
-        # Simulate processing time
-        # time.sleep(2)
-        # Process job data
-        print("Processing job:", job_data)
+        nums = job_data['random_nums']
+        file_count = job_data['file_num']
+        data = [i/file_count for i in nums]
+        path = OUTPUT_FILE_PATH.replace(':jobId', job_data['job_id'])
+        file_path = f"{path}/file-{uuid4()}.csv"
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        df = pd.DataFrame(data)
+        df.to_csv(file_path, index=False)
+        print('Saved file')
 
     def poll_worker_queue(self):
         while True:
@@ -74,10 +83,7 @@ class Worker:
                     self.set_worker_status_running()
                     is_started = True
                 job_data = job_data[1]  # Extracting the job data
-                # self.packet_info['packet'] = job_data
-                # self.event.set()  # Set the event to signal the main process
-                # return  # Exit the current worker
-                self.process_job(job_data)
+                self.process_job(json.loads(job_data))
             else:
                 print(
                     f"No jobs in the queue {self.worker_id} | {self.thread_id}")
