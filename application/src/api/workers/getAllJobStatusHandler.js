@@ -32,7 +32,7 @@ export const getAllJobStatusHandler = async (req, res, next) => {
                 rand_num_count: obj.rand_num_count,
                 worker_count: obj.worker_count,
                 queue_name: obj.worker_queue_name,
-                curr_queue_length: redisQueueLength(obj.worker_queue_name),
+                curr_queue_length: await redisQueueLength(obj.worker_queue_name),
                 status: obj.status,
                 created_at: obj.created_at,
                 updated_at: obj.updated_at,
