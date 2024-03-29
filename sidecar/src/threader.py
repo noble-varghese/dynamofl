@@ -27,12 +27,19 @@ class Worker:
         self.redis_conn = redis.Redis(
             host='test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
 
+    def create_folder_path(self, job_id):
+        home_folder = os.path.expanduser("~")
+        job_folder = os.path.join(
+            home_folder, "job_files", str(job_id), "input_data")
+        return job_folder
+
     def process_job(self, job_data):
         nums = job_data['random_nums']
         file_count = job_data['file_num']
         data = [i/file_count for i in nums]
-        path = OUTPUT_FILE_PATH.replace(':jobId', job_data['job_id'])
+        path = self.create_folder_path(job_data['job_id'])
         file_path = f"{path}/file-{uuid4()}.csv"
+        
         # Ensure the directory exists
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
