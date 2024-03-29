@@ -31,7 +31,7 @@ export const generateOutputCSV = async (jobId) => {
 
     for (const file of csvFiles) {
         logger.info(`file path: ${file}`)
-        const parser = fs.createReadStream(file).pipe(parse({ delimiter: ',' }));
+        const parser = fs.createReadStream(`${folderPath}/file`).pipe(parse({ delimiter: ',' }));
         for await (const record of parser) {
             allData.push(record);
         }
