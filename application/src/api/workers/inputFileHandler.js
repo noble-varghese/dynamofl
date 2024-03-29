@@ -68,6 +68,7 @@ export const inputFileHandler = async (req, res, next) => {
             new ErrorHandlerClass(NOT_FOUND.statusCode, NOT_FOUND.message, "The job is still processing or is not complete.")
         )
     }
+    logger.info("Reaches this point ....")
 
     res.setHeader('Content-Type', 'text/csv');
     // Set Content-Disposition header to indicate attachment and file name
