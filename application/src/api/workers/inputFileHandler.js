@@ -10,6 +10,9 @@ import { logger } from "../../logger/logger.js"
 import { getJobById } from "../../models/jobs/getJobById.js"
 import { parse } from 'csv-parse';
 
+const arrayToCSV = (data) => {
+    return data.map(row => row.join(',')).join('\n');
+}
 
 export const generateInputFile = async (jobId) => {
     const records = [];
@@ -19,7 +22,7 @@ export const generateInputFile = async (jobId) => {
     for await (const record of parser) {
         records.push(record);
     }
-    return records
+    return arrayToCSV(records)
 }
 
 const checkFileExists = (jobId) => {
@@ -63,7 +66,7 @@ export const inputFileHandler = async (req, res, next) => {
 
     res.setHeader('Content-Type', 'text/csv');
     // Set Content-Disposition header to indicate attachment and file name
-    res.setHeader('Content-Disposition', 'attachment; filename="data.csv"');
+    res.setHeader('Content-Disposition', 'attachment; filename="input_file.csv"');
     const csvData = await generateInputFile(store.jobId)
     res.send(csvData);
     return
