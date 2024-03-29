@@ -25,7 +25,7 @@ export const updateJobsHandler = async (req, res, next) => {
 
     logger.info(`JobID: ${store.jobId}`)
 
-    const result1 = getJobById(store.jobId)
+    const result1 = await getJobById(store.jobId)
     if (result1.err) {
         return next(
             new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result1.err)
@@ -49,7 +49,7 @@ export const updateJobsHandler = async (req, res, next) => {
         )
     }
 
-    const result3 = getJobById(store.jobId)
+    const result3 = await getJobById(store.jobId)
     if (result3.err) {
         return next(
             new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result3.err)
