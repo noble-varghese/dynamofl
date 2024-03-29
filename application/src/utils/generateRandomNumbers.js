@@ -8,7 +8,7 @@ import { getRandomNumber } from "../nameGenerator/generator.js"
  */
 export const generateRandomNumbers = (count, min = 0, max = 100) => {
     const nums = []
-    for (const i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
         nums.push(getRandomNumber(min, max))
     }
     return nums

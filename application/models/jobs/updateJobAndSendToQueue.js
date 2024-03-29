@@ -7,7 +7,7 @@ import { JOB_PROCESS_MESSAGE } from "../../src/utils/constants.js";
 
 const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCount) => {
 
-    for (const i = 0; i < files; i++) {
+    for (let i = 0; i < files; i++) {
         const nums = generateRandomNumbers(randNumCount)
         await redisRPush(queueName, {
             message: JOB_PROCESS_MESSAGE,
