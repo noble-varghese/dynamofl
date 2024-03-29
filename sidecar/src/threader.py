@@ -30,7 +30,7 @@ class Worker:
     def create_folder_path(self, job_id):
         home_folder = os.path.expanduser("~")
         job_folder = os.path.join(
-            home_folder, "job_files", str(job_id), "input_data")
+            home_folder, "job_files", str(job_id), "output_data")
         return job_folder
 
     def process_job(self, job_data):
