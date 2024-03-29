@@ -50,6 +50,7 @@ const generateOutputCSV = () => {
 }
 
 export const outputFileHandler = async (req, res, next) => {
+    logger.info("Generating output csv")
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         // Return 400 status code with validation errors
