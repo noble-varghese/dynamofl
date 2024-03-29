@@ -6,6 +6,7 @@ import { generateRandomNumbers } from "../../utils/generateRandomNumbers.js";
 import { IN_PROGRESS, JOB_PROCESS_MESSAGE } from "../../utils/constants.js";
 import fs from "fs"
 import os from "os"
+import path from "path";
 
 
 const arrayToCSV = (data) => {
