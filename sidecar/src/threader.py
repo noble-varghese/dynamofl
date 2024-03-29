@@ -191,17 +191,19 @@ def signal_handler(sig, frame):
     exit()
 
 
-def stop_background(stop_event, thread):
-    # request the background thread stop
-    stop_event.set()
-    # wait for the background thread to stop
-    thread.join()
+def cleanup_threads():
+    for thread_id, thread in THREADS.items():
+        print(f"Terminating thread {thread_id}")
+        # Assuming threads have a method to signal them to stop
+        thread.stop()  # This method needs to be implemented in your thread class
+        print(f"Joining on thread {thread_id}")
+        thread.join()
+    print("All threads terminated")
 
 
 if __name__ == "__main__":
     # # Add the main worker_creation consumer queueu
-    # atexit.register(stop_background, stop_event, thread)
-
     signal.signal(signal.SIGINT, signal_handler)
+    atexit.register(cleanup_threads)
     while True:
         main()
