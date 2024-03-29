@@ -6,6 +6,7 @@ import { updateJobAndSendToQueue } from "../../../models/jobs/updateJobAndSendTo
 import { getJobById } from "../../../models/jobs/getJobById.js"
 import { logger } from "../../logger/logger.js"
 import { getPendingJobById } from "../../../models/jobs/getPendingJobById.js"
+import { updateJobById } from "../../../models/jobs/updateJobById.js"
 
 
 export const updateJobsHandler = async (req, res, next) => {
@@ -20,13 +21,12 @@ export const updateJobsHandler = async (req, res, next) => {
     logger.info(req.params)
     const store = {
         jobId: req.params.tab_id,
-        numFiles: req.body.num_files,
-        numRandomValues: req.body.num_random_values,
+        status: req.body.status
     }
 
     logger.info(`JobID: ${store.jobId}`)
 
-    const result1 = await getPendingJobById(store.jobId)
+    const result1 = await getJobById(store.jobId)
     if (result1.err) {
         return next(
             new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result1.err)
@@ -38,26 +38,19 @@ export const updateJobsHandler = async (req, res, next) => {
             new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "job doesn't exist")
         )
     }
-
-    const queueName = result1.data[0]['queue_name']
-
-    const result2 = await updateJobAndSendToQueue(queueName, store.jobId, {
-        files_num: store.numFiles,
-        rand_num_count: store.numRandomValues
-    })
+    const result2 = await updateJobById(store.jobId, { status: store.status })
     if (result2.err) {
         return next(
-            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result2.err)
+            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result1.err)
         )
     }
 
-        const result3 = await getJobById(store.jobId)
-        if (result3.err) {
-            return next(
-                new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result3.err)
-            )
-        }
-
+    const result3 = await getJobById(store.jobId)
+    if (result3.err) {
+        return next(
+            new ErrorHandlerClass(SERVER_ERROR.statusCode, SERVER_ERROR.message, result3.err)
+        )
+    }
     req.data = result3
     responseHandler(req, res, next)
 }
