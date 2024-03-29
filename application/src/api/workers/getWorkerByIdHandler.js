@@ -3,6 +3,7 @@ import responseHandler from "../../middlewares/responseHandler.js"
 import ErrorHandlerClass from "../../utils/errorHandlerClass.js"
 import { CLIENT_ERROR, FORBIDDEN, SERVER_ERROR } from "../../utils/custom-error-codes.js"
 import { getWorkerById } from "../../../models/jobs/getWorkerById.js"
+import { logger } from "../../logger/logger.js"
 
 
 export const getWorkerByIdHandler = async (req, res, next) => {
@@ -13,6 +14,7 @@ export const getWorkerByIdHandler = async (req, res, next) => {
             new ErrorHandlerClass(CLIENT_ERROR.statusCode, CLIENT_ERROR.message, { errors: errors.array() })
         )
     }
+    logger.info(req.params)
     const store = {
         workerId: req.params.worker_id
     }
