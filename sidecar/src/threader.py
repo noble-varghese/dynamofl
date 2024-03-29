@@ -38,7 +38,7 @@ class Worker:
 
         df = pd.DataFrame(data)
         df.to_csv(file_path, index=False)
-        print('Saved file')
+        print(f'Saved file - {path}')
 
     def poll_worker_queue(self):
         while True:
