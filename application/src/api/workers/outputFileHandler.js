@@ -17,7 +17,7 @@ const arrayToCSV = (data) => {
 
 export const generateOutputCSV = async (jobId) => {
     const folderPath = outputFolderPath(jobId)
-    const files = await fs.readdir(folderPath);
+    const files = fs.readdir(folderPath);
     const csvFiles = files.filter(file => path.extname(file).toLowerCase() === '.csv');
     const allData = [];
 
@@ -27,6 +27,7 @@ export const generateOutputCSV = async (jobId) => {
             allData.push(record);
         }
     }
+    logger.info("Getting the average value")
     let avg = allData[0]
     for (const data of allData.slice(1)) {
         // Adds the corresponding elements in each position.
