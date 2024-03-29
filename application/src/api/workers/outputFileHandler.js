@@ -38,7 +38,7 @@ export const generateOutputCSV = async (jobId) => {
     }
     logger.info("Getting the average value")
     let avg = allData[0]
-    logger(avg)
+    logger.info(avg)
     return [[]]
     for (const data of allData.slice(1)) {
         logger.info(data, avg)
