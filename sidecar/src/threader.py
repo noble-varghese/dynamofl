@@ -6,7 +6,8 @@ import atexit
 from uuid import uuid4
 import time
 import signal
-from constants import WORKER_CREATION_QUEUE, WORKER_CREATION_EVENT
+from constants import WORKER_CREATION_QUEUE, WORKER_CREATION_EVENT, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
+from client import Client
 
 WORKERS = {}
 THREADS = {}
@@ -20,6 +21,7 @@ class Worker:
         self.thread_id = thread_id
         self.event = event
         self.packet_info = packet_info
+        self.client = Client(base_url="http://13.215.183.121:4000/v1")
         self.redis_conn = redis.Redis(
             host='test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
 
@@ -40,13 +42,26 @@ class Worker:
                 self.event.set()  # Set the event to signal the main process
                 return  # Exit the current worker
             else:
-                print(f"No jobs in the queue {self.worker_id} | {self.thread_id}")
+                print(
+                    f"No jobs in the queue {self.worker_id} | {self.thread_id}")
 
     def remove_thread(self, id):
         del THREADS[id]
 
+    def set_worker_status_running(self):
+        self.client.put(f'worker/{self.worker_id}', json={
+            "status": WORKER_RUNNING_STATUS
+        })
+
+    def set_worker_status_completed(self):
+        self.client.put(f'worker/{self.worker_id}', json={
+            "status": WORKER_COMPLETED_STATUS
+
+        })
+
     def packet_consumer(self):
         is_started = False  # Tracker to check if queue has started
+        self.set_worker_status_running()
         while not self.event.is_set():
             job_data = self.redis_conn.blpop(self.queue_name, timeout=1)
             if job_data:
@@ -61,6 +76,7 @@ class Worker:
                     f"No jobs in the queue {self.worker_id} | {self.thread_id}")
                 # If the consumer started and if no more packet is present, then we can safely exit the thread
                 if is_started:
+                    self.set_worker_status_completed()
                     return
 
     def store_jobs(self, jobs):
