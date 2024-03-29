@@ -35,13 +35,13 @@ const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCoun
         }))
     }
     // Create outputfiles folder
-    createFolder(`./job_files/${jobId}/output_data/`)
+    createFolder(`~/job_files/${jobId}/output_data/`)
 
     // Create input files folder
-    createFolder(`./job_files/${jobId}/input_data/`)
+    createFolder(`~/job_files/${jobId}/input_data/`)
 
     // Save the input file in the path
-    const fileName = `./job_files/${jobId}/input_data/input_file.csv`
+    const fileName = `~/job_files/${jobId}/input_data/input_file.csv`
     saveCSVToDisk(arrayToCSV(data), fileName)
 }
 
