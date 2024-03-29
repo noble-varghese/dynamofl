@@ -7,6 +7,7 @@ import { redisQueueLength } from "../../utils/redisUtils.js"
 import { outputFolderPath } from "../../models/jobs/updateJobAndSendToQueue.js"
 import fs from "fs"
 import { logger } from "../../logger/logger.js"
+import { getJobById } from "../../models/jobs/getJobById.js"
 
 export const generateInputFile = async (jobId) => {
     const records = [];
