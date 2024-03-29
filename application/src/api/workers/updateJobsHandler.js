@@ -16,6 +16,7 @@ export const updateJobsHandler = async (req, res, next) => {
             new ErrorHandlerClass(CLIENT_ERROR.statusCode, CLIENT_ERROR.message, { errors: errors.array() })
         )
     }
+    logger.info('Params are: ', req.params)
     const store = {
         jobId: req.params.tab_id,
         numFiles: req.body.num_files,
