@@ -9,13 +9,13 @@ const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCoun
 
     for (let i = 0; i < files; i++) {
         const nums = generateRandomNumbers(randNumCount)
-        await redisRPush(queueName, {
+        await redisRPush(queueName, JSON.stringify({
             message: JOB_PROCESS_MESSAGE,
             job_id: jobId,
             file_num: files,
             num_count: randNumCount,
             random_nums: nums,
-        })
+        }))
     }
 
 }
