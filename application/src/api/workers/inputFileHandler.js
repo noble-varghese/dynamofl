@@ -20,7 +20,7 @@ export const generateInputFile = async (jobId) => {
     }
 }
 
-const checkFileExists = (path) => {
+const checkFileExists = (jobId) => {
     const directoryPath = outputFolderPath(jobId)
     const path = `${directoryPath}/input_file.csv`
     fs.access(path, fs.constants.F_OK, (err) => {
@@ -56,7 +56,7 @@ export const inputFileHandler = async (req, res, next) => {
         )
     }
 
-    const isFileExists = checkFileExists(jobId)
+    const isFileExists = checkFileExists(store.jobId)
     if (!isFileExists) {
         return next(
             new ErrorHandlerClass(NOT_FOUND.statusCode, NOT_FOUND.message, "The job is still processing or is not complete.")
