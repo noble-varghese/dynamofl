@@ -28,8 +28,12 @@ export const updateJobAndSendToQueue = async (queueName, id, data) => {
     try {
         // Update the jobs with files and count.
         await trx(JOBS_TABLE)
-            .update(data)
+            .update({
+                ...data,
+                status: IN_PROGRESS
+            })
             .where('id', id)
+
 
         // Create files and send it to the queue.
         await createFilesAndAddJobsToQueue(queueName, id, data.files_num, data.rand_num_count)

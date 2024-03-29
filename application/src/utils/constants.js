@@ -9,3 +9,4 @@ export const roleNames = ["owner", "administrator", "editor", "collaborator"];
 
 export const susbscriptionStatuses = ["trial", "on", "void", "cancelled"];
 
+export const PENDING_STATUS = "PENDING"
