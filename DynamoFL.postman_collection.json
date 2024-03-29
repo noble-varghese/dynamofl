@@ -25,12 +25,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/v1/ping",
+					"raw": "http://13.215.183.121:4000/v1/ping",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"13",
+						"215",
+						"183",
+						"121"
 					],
-					"port": "8000",
+					"port": "4000",
 					"path": [
 						"v1",
 						"ping"
@@ -46,7 +49,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"count\": 5}",
+					"raw": "{\"count\": 3}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -54,12 +57,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/v1/worker",
+					"raw": "http://13.215.183.121:4000/v1/worker",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"13",
+						"215",
+						"183",
+						"121"
 					],
-					"port": "8000",
+					"port": "4000",
 					"path": [
 						"v1",
 						"worker"
@@ -72,45 +78,9 @@
 			"name": "Get Job By ID",
 			"request": {
 				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "Update Job Params",
-			"request": {
-				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/v1/worker",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"v1",
-						"worker"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllJobs",
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
-		},
-		{
-			"name": "UpdateWorkerStatus",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://13.215.183.121:4000/v1/job/6e83d169-e08d-4516-bf8e-8f748146585b",
+					"raw": "http://13.215.183.121:4000/v1/job/d1e34196-3fde-4745-be3f-830e3c5cd7d6",
 					"protocol": "http",
 					"host": [
 						"13",
@@ -122,7 +92,103 @@
 					"path": [
 						"v1",
 						"job",
-						"6e83d169-e08d-4516-bf8e-8f748146585b"
+						"d1e34196-3fde-4745-be3f-830e3c5cd7d6"
+					],
+					"query": [
+						{
+							"key": "jobId",
+							"value": "a0a43b03-9b1f-4e4c-9ceb-38e060274be3",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Job Params",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"num_files\": 2000,\n    \"num_random_values\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://13.215.183.121:4000/v1/job/d1e34196-3fde-4745-be3f-830e3c5cd7d6",
+					"protocol": "http",
+					"host": [
+						"13",
+						"215",
+						"183",
+						"121"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"job",
+						"d1e34196-3fde-4745-be3f-830e3c5cd7d6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllJobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://13.215.183.121:4000/v1/job",
+					"protocol": "http",
+					"host": [
+						"13",
+						"215",
+						"183",
+						"121"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"job"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateWorkerStatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"PENDING\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://13.215.183.121:4000/v1/worker/bf2b726c-caa1-4f72-89a2-5570edc6396f",
+					"protocol": "http",
+					"host": [
+						"13",
+						"215",
+						"183",
+						"121"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"worker",
+						"bf2b726c-caa1-4f72-89a2-5570edc6396f"
 					]
 				}
 			},
@@ -132,15 +198,57 @@
 			"name": "GetWorkerById",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://13.215.183.121:4000/v1/worker/732999da-56e4-464a-a3e6-66aa50cbc02c",
+					"protocol": "http",
+					"host": [
+						"13",
+						"215",
+						"183",
+						"121"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"worker",
+						"732999da-56e4-464a-a3e6-66aa50cbc02c"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Update Job Status (Internal API)",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"PENDING\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://13.215.183.121:4000/v1/job/job_status/903d7eac-3b02-496c-bfe0-ec09f987fc3f",
+					"protocol": "http",
+					"host": [
+						"13",
+						"215",
+						"183",
+						"121"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"job",
+						"job_status",
+						"903d7eac-3b02-496c-bfe0-ec09f987fc3f"
+					]
+				}
 			},
 			"response": []
 		}
