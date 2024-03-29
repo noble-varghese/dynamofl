@@ -31,7 +31,7 @@ class Worker:
 
     def poll_worker_queue(self):
         while True:
-            job_data = self.redis_conn.blpop(self.queue_name, timeout=4)
+            job_data = self.redis_conn.blpop(self.queue_name, timeout=1)
             if job_data:
                 job_data = job_data[1]  # Extracting the job data
                 print("Worker creation packet detected. Signaling to add a new worker.")
