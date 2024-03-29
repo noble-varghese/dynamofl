@@ -203,6 +203,5 @@ def cleanup_threads():
 if __name__ == "__main__":
     # # Add the main worker_creation consumer queueu
     signal.signal(signal.SIGINT, signal_handler)
-    atexit.register(cleanup_threads)
     while True:
         main()
