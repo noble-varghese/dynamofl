@@ -57,7 +57,7 @@ export const defineRoutes = (app) => {
     );
 
     router.put(
-        "worker/:worker_id",
+        "/worker/:worker_id",
         [
             param('worker_id').notEmpty().isUUID(),
             body('status').notEmpty().isIn(['PENDING', 'WAITING_FOR_PACKETS', 'RUNNING', 'COMPLETED', 'FAILED']).withMessage('Invalid value for "status"')
