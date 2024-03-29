@@ -6,7 +6,7 @@ import { logger } from "../../src/logger/logger.js";
 
 
 export const getJobById = async (id) => {
-    logger.info('Starting job: ', id)
+    logger.info(`Getting job by id: ${id}`)
     const result = {};
     try {
         const row = await pgClient(JOBS_TABLE)
