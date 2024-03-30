@@ -209,3 +209,4 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, signal_handler)
     while True:
         main()
+        time.sleep(0.5)

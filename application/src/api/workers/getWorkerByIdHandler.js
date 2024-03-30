@@ -29,5 +29,6 @@ export const getWorkerByIdHandler = async (req, res, next) => {
             new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "worker doesn't exist")
         )
     }
+    req.data = result.data
     responseHandler(req, res, next)
 }
