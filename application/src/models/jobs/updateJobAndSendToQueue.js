@@ -35,6 +35,7 @@ export const outputFolderPath = (jobId) => {
     const jobFolderPath = path.join(homeFolder, 'job_files', `${jobId}`, 'output_data');
     return jobFolderPath;
 }
+
 const inputFolderPath = (jobId) => {
     const homeFolder = os.homedir();
     const jobFolderPath = path.join(homeFolder, 'job_files', `${jobId}`, 'input_data');
@@ -55,13 +56,16 @@ const createFilesAndAddJobsToQueue = async (queueName, jobId, files, randNumCoun
             random_nums: nums,
         }))
     }
+    logger.info('creating the outputFolder')
     // Create outputfiles folder
     createFolder(outputFolderPath(jobId))
 
     // Create input files folder
+    logger.info('creating the inputFolder')
     createFolder(inputFolderPath(jobId))
 
     // Save the input file in the path
+    logger.info('saving to CSV')
     const fileName = inputCsvFilePath(jobId)
     saveCSVToDisk(arrayToCSV(data), fileName)
 }
