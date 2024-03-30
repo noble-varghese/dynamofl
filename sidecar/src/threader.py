@@ -88,7 +88,7 @@ class Worker:
 
     def packet_consumer(self):
         is_started = False  # Tracker to check if queue has started
-        time.sleep(5)
+        time.sleep(0.5)
         self.set_worker_waiting_for_pkt()
         while not self.event.is_set():
             job_data = self.redis_conn.blpop(self.queue_name, timeout=1)
