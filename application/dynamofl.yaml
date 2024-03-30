@@ -21,11 +21,11 @@ logger:
   destination: null
 
 redis:
-  url: redis://test.g369sf.ng.0001.apse1.cache.amazonaws.com:6379
+  url: redis://localhost
 
 
 postgres:
-  host: "database-1.c3wga62kmum9.ap-southeast-1.rds.amazonaws.com"
+  host: "localhost"
   port: "5432"
   user: "postgres"
   database: "test"
