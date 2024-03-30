@@ -46,7 +46,7 @@ export const getAllJobStatusHandler = async (req, res, next) => {
                 status: obj.status,
                 created_at: obj.created_at,
                 updated_at: obj.updated_at,
-                input_csv_status: checkInputFileExists(result.data[0].id),
+                input_csv_status: checkInputFileExists(obj.id),
                 worker_data: []
             }
         }
