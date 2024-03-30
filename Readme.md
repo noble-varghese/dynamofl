@@ -1,17 +1,18 @@
 # DynamoFL
 
-This README provides instructions on how to set up and run an application built using Node.js and Python. It includes commands for script startup by modifying the `sampleYaml.yml` file.
+This README provides instructions on how to set up and run an application built using Node.js and Python. It includes commands for script startup by modifying the `application/dynamofl.yml` file.
 
 ## Prerequisites
 
 - Node.js installed on your system.
 - Python installed on your system.
 - A YAML parser installed for Python, such as PyYAML.
+- virtualenv setup to initiallise a virtual env
 
 ## Installation
 
 1. Clone the repository to your local machine.
-2. Navigate to the project directory.
+2. Navigate to the application directory.
 3. Install the required Node.js dependencies by running:
 
 ```Node
