@@ -7,7 +7,7 @@ import { createClient } from 'redis';
 export const initClient = async () => {
     try {
         const client = await createClient({
-            url: config.redis.url, // Replace with your primary endpoint
+            url: config.redis.url ? config.redis.url : `redis://${config.redis.host}:${config.redis.port}`, // Replace with your primary endpoint
         }).connect();
 
         await client.ping()
