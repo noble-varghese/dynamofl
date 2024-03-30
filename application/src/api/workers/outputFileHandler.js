@@ -39,8 +39,8 @@ export const generateOutputCSV = async (jobId, fileNum) => {
     }
     logger.info("Getting the average value")
     let avg = allData[0]
-    let newData = [avg]
-    for (const data of allData.slice(1)) {
+    let newData = []
+    for (const data of allData)) {
         logger.info(data, avg)
         // Adds the corresponding elements in each position.
         avg = avg.map((num, index) => parseFloat(num) + parseFloat(data[index]));
