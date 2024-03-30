@@ -180,7 +180,6 @@ def main():
             WORKERS[d['worker_id']] = d
 
             print('waiting for threads to clear')
-            time.sleep(5)
             event.clear()  # Reset the event
             packet_info.clear()  # Clear the packet information
 
