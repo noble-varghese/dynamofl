@@ -3,15 +3,15 @@ import ErrorHandlerClass from "../utils/errorHandlerClass.js";
 import { NOT_FOUND } from "../utils/custom-error-codes.js";
 import responseHandler from "../middlewares/responseHandler.js";
 import { createWorkerHandler } from "../api/workers/createWorkerHandler.js";
-import { updateJobsHandler } from "../api/workers/updateJobsHandler.js";
+import { updateJobsHandler } from "../api/jobs/updateJobsHandler.js";
 import { body, param } from "express-validator";
-import { getJobStatusHandler } from "../api/workers/getJobStatusHandler.js";
-import { getAllJobStatusHandler } from "../api/workers/getAllJobStatusHandler.js";
+import { getJobStatusHandler } from "../api/jobs/getJobStatusHandler.js";
+import { getAllJobStatusHandler } from "../api/jobs/getAllJobStatusHandler.js";
 import { updateWorkerStatusHandler } from "../api/workers/updateWorkerStatusHandler.js";
 import { getWorkerByIdHandler } from "../api/workers/getWorkerByIdHandler.js";
-import { updateJobStatusHandler } from "../api/workers/updateJobStatusHandler.js";
-import { inputFileHandler } from "../api/workers/inputFileHandler.js";
-import { outputFileHandler } from "../api/workers/outputFileHandler.js";
+import { updateJobStatusHandler } from "../api/jobs/updateJobStatusHandler.js";
+import { inputFileHandler } from "../api/fileGeneration/inputFileHandler.js";
+import { outputFileHandler } from "../api/fileGeneration/outputFileHandler.js";
 
 export const defineRoutes = (app) => {
     const router = express.Router();

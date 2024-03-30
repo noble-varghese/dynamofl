@@ -6,8 +6,10 @@ import atexit
 from uuid import uuid4
 import time
 import signal
-from constants import JOB_STATUS_COMPLETE, WORKER_CREATION_QUEUE, WORKER_WAITING_FOR_PACKETS_STATUS, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS
+from constants import (JOB_STATUS_COMPLETE, WORKER_CREATION_QUEUE,
+                       WORKER_WAITING_FOR_PACKETS_STATUS, WORKER_RUNNING_STATUS, WORKER_COMPLETED_STATUS)
 from client import Client
+from config import config_data
 import pandas as pd
 import os
 
@@ -24,9 +26,9 @@ class Worker:
         self.event = event
         self.job_id = job_id
         self.packet_info = packet_info
-        self.client = Client(base_url="http://13.215.183.121:5000/v1")
+        self.client = Client(base_url=config_data.server['url'])
         self.redis_conn = redis.Redis(
-            host='test.g369sf.ng.0001.apse1.cache.amazonaws.com', port=6379)
+            host=config_data.redis['host'], port=config_data.redis['port'])
 
     def create_folder_path(self, job_id):
         home_folder = os.path.expanduser("~")

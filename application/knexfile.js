@@ -1,5 +1,7 @@
 // Update with your config settings.
 
+import { config } from "./src/configuration/index.js";
+
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -8,13 +10,11 @@ export default {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'test',
-      user: 'postgres',
-      password: 'password',
-      ssl: {
-        rejectUnauthorized: false, // This is required for RDS Proxy connections
-      },
-      host: 'database-1.c3wga62kmum9.ap-southeast-1.rds.amazonaws.com'
+      database: config.postgres.database,
+      user: config.postgres.url,
+      password: config.postgres.password,
+      ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
+      host: config.postgres.database_url
     }
   },
 

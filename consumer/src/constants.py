@@ -1,3 +1,4 @@
+DEFAULT_CONFIG_FILE = "../dynamofl.yaml"
 WORKER_CREATION_QUEUE = "create_worker_queue"
 
 WORKER_CREATION_EVENT = "Worker_Creation"

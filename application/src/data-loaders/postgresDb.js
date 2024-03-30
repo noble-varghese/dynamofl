@@ -13,10 +13,10 @@ export const initPostgres = async () => {
                 user: config.postgres.user,
                 database: config.postgres.database,
                 password: config.postgres.password,
-                ssl: {
-                    rejectUnauthorized: false, // This is required for RDS Proxy connections
-                },
-                // ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
+                // ssl: {
+                //     rejectUnauthorized: false, // This is required for RDS Proxy connections
+                // },
+                ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
             },
         });
         logger.info('Connected to PostgresDb')
