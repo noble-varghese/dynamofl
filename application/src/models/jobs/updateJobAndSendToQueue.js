@@ -19,6 +19,7 @@ const createFolder = (folderPath) => {
 
 const saveCSVToDisk = (csvData, filePath) => {
     // Save CSV data to file
+    logger.info("Comes to here...")
     fs.writeFileSync(filePath, csvData);
     logger.info(`CSV file saved as ${filePath}`);
 }
