@@ -39,7 +39,7 @@ export const generateOutputCSV = async (jobId, fileNum) => {
     }
     logger.info("Getting the average value")
     let avg = allData[0]
-    let newData = []
+    let newData = [avg]
     for (const data of allData.slice(1)) {
         logger.info(data, avg)
         // Adds the corresponding elements in each position.
@@ -84,7 +84,7 @@ export const outputFileHandler = async (req, res, next) => {
         )
     }
 
-    if (result1.data[0]['status']!= JOB_STATUS_COMPLETE) {
+    if (result1.data[0]['status'] != JOB_STATUS_COMPLETE) {
         return next(
             new ErrorHandlerClass(FORBIDDEN.statusCode, FORBIDDEN.message, "Job is still processing")
         )
