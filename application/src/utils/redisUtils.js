@@ -12,6 +12,7 @@ export const redisRPush = async (key, data) => {
         logger.error("redis insertion failed: ", err)
         throw Error(err)
     }
+    logger.info('redis push successfull')
     return res
 }
 
