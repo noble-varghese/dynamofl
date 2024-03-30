@@ -21,7 +21,8 @@ export const getJobStatus = async (id) => {
             )
             .join(WORKERS_TABLE, `${JOBS_TABLE}.id`, `${WORKERS_TABLE}.job_id`)
             .where(`${JOBS_TABLE}.id`, id)
-        
+
+
         result.data = row
 
     } catch (e) {
