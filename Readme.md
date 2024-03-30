@@ -28,7 +28,7 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Modify the `sampleYaml.yml` file to configure your application settings. Here's a template for the YAML file:
+Modify the `application/dynamofl.yml` file to configure your application settings. Here's a template for the YAML file:
 
 
 - `app.name`: The name of your application.
@@ -39,10 +39,15 @@ Modify the `sampleYaml.yml` file to configure your application settings. Here's 
 
 ## Running the Application
 
-1. Start the Node.js server by running:
+1. Start the Node.js server by running: 
+```bash
+make run-consumer
+```
 
 
 
 2. Start the Python server by running:
-
+```bash
+make run-application-server
+```
 
