@@ -11,10 +11,10 @@ export default {
     client: 'postgresql',
     connection: {
       database: config.postgres.database,
-      user: config.postgres.url,
+      user: config.postgres.user,
       password: config.postgres.password,
       ssl: config.postgres.ssl ? { rejectUnauthorized: false } : false,
-      host: config.postgres.database_url
+      host: config.postgres.host
     }
   },
 
