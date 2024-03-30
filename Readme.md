@@ -20,14 +20,10 @@ This README provides instructions on how to set up and run an application built 
 npm install
 ```
 
-## Configuration
-
-Modify the `dynamofl.yaml` file to configure your application settings.
-
 
 ## Configuration
 
-Modify the `application/dynamofl.yml` file to configure your application settings.
+Modify the `dynamofl.yml` file to configure your application settings.
 
 
 ## Running the Application
