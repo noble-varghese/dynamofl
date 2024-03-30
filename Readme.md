@@ -1,6 +1,6 @@
 # DynamoFL
 
-This README provides instructions on how to set up and run an application built using Node.js and Python. It includes commands for script startup by modifying the `application/dynamofl.yml` file.
+This README provides instructions on how to set up and run an application built using Node.js and Python. It includes commands for script startup by modifying the `./dynamofl.yml` file.
 
 ## Prerequisites
 
