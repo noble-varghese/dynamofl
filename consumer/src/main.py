@@ -90,7 +90,6 @@ class Worker:
 
     def packet_consumer(self):
         is_started = False  # Tracker to check if queue has started
-        time.sleep(0.5)
         self.set_worker_waiting_for_pkt()
         while not self.event.is_set():
             job_data = self.redis_conn.blpop(self.queue_name, timeout=1)
@@ -166,6 +165,8 @@ def main():
         t.daemon = True
         t.start()
 
+    print('Waiting for threads to finish')
+    time.sleep(0.5)
     for thread_id, thread in [[k, v] for k, v in THREADS.items()]:
         print('joining...', thread_id)
         thread.join()
@@ -178,6 +179,8 @@ def main():
             # time.sleep(5)
             WORKERS[d['worker_id']] = d
 
+            print('waiting for threads to clear')
+            time.sleep(5)
             event.clear()  # Reset the event
             packet_info.clear()  # Clear the packet information
 
