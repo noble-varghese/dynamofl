@@ -19,7 +19,7 @@ export const getAllJobs = async () => {
 
             )
             .join(WORKERS_TABLE, `${JOBS_TABLE}.id`, `${WORKERS_TABLE}.job_id`)
-            .orderBy(`${JOBS_TABLE}.id`,)
+            .orderBy(`${JOBS_TABLE}.created_at`,"desc")
 
 
         result.data = row
