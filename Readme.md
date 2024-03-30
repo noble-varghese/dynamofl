@@ -41,13 +41,13 @@ Modify the `application/dynamofl.yml` file to configure your application setting
 
 1. Start the Node.js server by running: 
 ```bash
-make run-consumer
+make run-application-server
 ```
 
 
 
-2. Start the Python server by running:
+2. Start the Python server (Consumer) by running:
 ```bash
-make run-application-server
+make run-consumer
 ```
 
